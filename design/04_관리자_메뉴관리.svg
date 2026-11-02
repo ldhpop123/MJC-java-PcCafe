@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1064" height="860" viewBox="0 0 1064 860">
+<title>04 관리자 · 메뉴 관리 탭</title>
+<rect width="1064" height="860" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">04 관리자 · 메뉴 관리 탭</text>
+<text x="1032" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">1000 × 650</text>
+<g id="창">
+<rect x="32" y="72" width="1000" height="650" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
+<path d="M32 100V82a10 10 0 0 1 10 -10H1022a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
+<circle cx="48" cy="86" r="6" fill="#FF5F57"/>
+<circle cx="68" cy="86" r="6" fill="#FEBC2E"/>
+<circle cx="88" cy="86" r="6" fill="#28C840"/>
+<text x="532.0" y="91" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">PC방 관리자 - 관리자</text>
+</g>
+<g id="내용">
+<g id="JButton 게스트 추가">
+<rect x="40" y="106" width="104" height="26" rx="6" fill="#0A84FF"/>
+<text x="92.0" y="123.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#FFFFFF">게스트 추가</text>
+</g>
+<g id="JTabbedPane 탭">
+<rect x="40" y="140" width="54" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="67.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">좌석</text>
+<rect x="96" y="140" width="93" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="142.5" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">회원 관리</text>
+<rect x="191" y="140" width="93" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<rect x="192" y="164" width="91" height="6" rx="0" fill="#FFFFFF"/>
+<text x="237.5" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">메뉴 관리</text>
+<rect x="286" y="140" width="54" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="313.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">주문</text>
+<rect x="342" y="140" width="54" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="369.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">매출</text>
+</g>
+<rect x="40" y="167" width="984" height="547" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<g id="JTable (JScrollPane)">
+<rect x="48" y="180" width="968" height="446" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<rect x="49" y="181" width="966" height="26" rx="0" fill="#EDEDF0"/>
+<text x="56" y="198" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="600" text-anchor="start" fill="#1D1D1F">번호</text>
+<text x="177.0" y="198" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="600" text-anchor="start" fill="#1D1D1F">이름</text>
+<text x="459.3333333333333" y="198" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="600" text-anchor="start" fill="#1D1D1F">가격</text>
+<text x="661.0" y="198" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="600" text-anchor="start" fill="#1D1D1F">분류</text>
+<text x="862.6666666666667" y="198" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="600" text-anchor="start" fill="#1D1D1F">재고</text>
+<line x1="48" y1="206" x2="1016" y2="206" stroke="#EDEDF0" stroke-width="1"/>
+<text x="56" y="224" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">5</text>
+<text x="177.0" y="224" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">과자</text>
+<text x="459.3333333333333" y="224" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">1,500</text>
+<text x="661.0" y="224" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">간식</text>
+<text x="862.6666666666667" y="224" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">80</text>
+<rect x="49" y="232" width="966" height="26" rx="0" fill="#D6E8FF"/>
+<line x1="48" y1="232" x2="1016" y2="232" stroke="#EDEDF0" stroke-width="1"/>
+<text x="56" y="250" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">1</text>
+<text x="177.0" y="250" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">라면</text>
+<text x="459.3333333333333" y="250" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">3,000</text>
+<text x="661.0" y="250" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">식사</text>
+<text x="862.6666666666667" y="250" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">48</text>
+<line x1="48" y1="258" x2="1016" y2="258" stroke="#EDEDF0" stroke-width="1"/>
+<text x="56" y="276" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">2</text>
+<text x="177.0" y="276" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">볶음밥</text>
+<text x="459.3333333333333" y="276" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">5,000</text>
+<text x="661.0" y="276" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">식사</text>
+<text x="862.6666666666667" y="276" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">30</text>
+<line x1="48" y1="284" x2="1016" y2="284" stroke="#EDEDF0" stroke-width="1"/>
+<text x="56" y="302" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">4</text>
+<text x="177.0" y="302" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">아메리카노</text>
+<text x="459.3333333333333" y="302" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">2,000</text>
+<text x="661.0" y="302" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">음료</text>
+<text x="862.6666666666667" y="302" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">100</text>
+<line x1="48" y1="310" x2="1016" y2="310" stroke="#EDEDF0" stroke-width="1"/>
+<text x="56" y="328" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">3</text>
+<text x="177.0" y="328" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">콜라</text>
+<text x="459.3333333333333" y="328" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">1,500</text>
+<text x="661.0" y="328" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">음료</text>
+<text x="862.6666666666667" y="328" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">100</text>
+</g>
+<text x="56" y="654" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">이름</text>
+<g id="JTextField">
+<rect x="92" y="636" width="120" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="100" y="653.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">라면</text>
+</g>
+<text x="226" y="654" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">가격</text>
+<g id="JTextField">
+<rect x="262" y="636" width="80" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="270" y="653.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">3000</text>
+</g>
+<text x="356" y="654" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">분류</text>
+<g id="JTextField">
+<rect x="392" y="636" width="80" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="400" y="653.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">식사</text>
+</g>
+<text x="486" y="654" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">재고</text>
+<g id="JTextField">
+<rect x="522" y="636" width="60" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="530" y="653.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">48</text>
+</g>
+<g id="JButton 추가">
+<rect x="56" y="672" width="64" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="88.0" y="689.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">추가</text>
+</g>
+<g id="JButton 수정">
+<rect x="128" y="672" width="64" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="160.0" y="689.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">수정</text>
+</g>
+<g id="JButton 삭제">
+<rect x="200" y="672" width="64" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="232.0" y="689.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">삭제</text>
+</g>
+<g id="JButton 새로 입력">
+<rect x="272" y="672" width="84" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="314.0" y="689.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">새로 입력</text>
+</g>
+<g id="표시 1"><circle cx="48" cy="180" r="10" fill="#FF3B30"/><text x="48" y="184" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text></g>
+<g id="표시 2"><circle cx="48" cy="636" r="10" fill="#FF3B30"/><text x="48" y="640" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
+<g id="표시 3"><circle cx="48" cy="672" r="10" fill="#FF3B30"/><text x="48" y="676" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text></g>
+</g>
+<g id="범례">
+<text x="32" y="754" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
+<circle cx="41" cy="774" r="9" fill="#FF3B30"/>
+<text x="41" y="778" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
+<text x="58" y="778" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">메뉴 표: 분류 → 이름 순. 셀은 직접 수정 불가(readOnlyModel)</text>
+<circle cx="41" cy="796" r="9" fill="#FF3B30"/>
+<text x="41" y="800" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="58" y="800" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">입력칸: 줄을 클릭하면 채워짐. 가격/재고는 0 이상의 숫자만</text>
+<circle cx="41" cy="818" r="9" fill="#FF3B30"/>
+<text x="41" y="822" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+<text x="58" y="822" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">추가 / 수정 / 삭제(확인창) / 새로 입력(선택 해제 + 칸 비우기)</text>
+</g>
+</svg>

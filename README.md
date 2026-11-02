@@ -114,6 +114,60 @@ public class TimerThread extends Thread {
 
 ## 6. DB 설계
 
+```mermaid
+erDiagram
+    member |o--o| seat : "사용 중"
+    member |o--o{ orders : "주문"
+    menu |o--o{ orders : "주문된 메뉴"
+    member |o--o{ payment : "결제"
+
+    member {
+        varchar id PK
+        varchar password
+        varchar name
+        varchar phone
+        int remain_seconds
+        boolean is_admin
+        datetime created_at
+    }
+    seat {
+        int seat_no PK
+        varchar status
+        varchar member_id FK
+    }
+    menu {
+        int menu_id PK
+        varchar name
+        int price
+        varchar category
+        int stock
+    }
+    orders {
+        int order_id PK
+        varchar member_id FK
+        int seat_no
+        int menu_id FK
+        int qty
+        varchar status
+        datetime ordered_at
+    }
+    payment {
+        int pay_id PK
+        varchar member_id FK
+        varchar type
+        int amount
+        datetime paid_at
+    }
+    time_product {
+        int product_id PK
+        int minutes
+        int price
+    }
+```
+
+- 모든 외래키는 `ON DELETE SET NULL`이라 회원·메뉴를 지워도 주문·결제 기록은 남는다.
+- `orders.seat_no`는 외래키가 아닌 기록용 값, `time_product`는 독립된 요금표다.
+
 ```sql
 CREATE TABLE member (
     id             VARCHAR(20) PRIMARY KEY,
@@ -209,9 +263,16 @@ src/main/java/pccafe/
 │  └─ TimeProductDAO.java
 ├─ ui/
 │  ├─ BaseFrame.java             // abstract, extends JFrame
+│  ├─ AdminLoginFrame.java       // extends BaseFrame, 시작 화면
 │  ├─ AdminFrame.java            // extends BaseFrame
 │  ├─ GuestFrame.java            // extends BaseFrame
-│  └─ SignUpDialog.java
+│  ├─ SignUpDialog.java
+│  └─ panel/                     // 관리자 탭
+│     ├─ BasePanel.java          // abstract, extends JPanel
+│     ├─ MenuPanel.java
+│     ├─ OrderPanel.java
+│     ├─ MemberPanel.java
+│     └─ SalesPanel.java
 ├─ thread/
 │  └─ TimerThread.java
 └─ util/
@@ -221,12 +282,19 @@ src/main/java/pccafe/
 > `BaseFrame`은 생성자에서 `initUI()`를 부르지 않고 `display()`에서 부른다.
 > 생성자에서 부르면 자식 클래스의 필드가 초기화되기 전에 실행되기 때문이다.
 
+### 화면 설계도
+
+`design/` 폴더에 화면 흐름도와 화면별 설계도(SVG 12개)가 있다. Figma에 끌어다 놓으면 편집 가능한 레이어로 들어간다. 화면이 바뀌면 `python3 design/gen_design.py design`으로 다시 만든다.
+
+![화면 흐름도](design/00_화면_흐름도.svg)
+
 ## 8. 실행 방법
 
 1. MySQL 실행 후 스키마 생성: `mysql -u root -p < sql/schema.sql`
 2. `src/main/resources/db.properties.example`을 `db.properties`로 복사하고 계정 정보 입력
 3. IntelliJ에서 `pom.xml`을 Maven 프로젝트로 열기 → `pccafe.Main` 실행
-4. 테스트 계정: `test` / `1234` (1시간 보유)
+4. 관리자 로그인: `admin` / `admin` → 관리자 창에서 "게스트 추가"
+5. 게스트 테스트 계정: `test` / `1234` (1시간 보유)
 
 ## 9. 개발 순서
 

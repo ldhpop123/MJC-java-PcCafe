@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="364" height="424" viewBox="0 0 364 424">
+<title>09 회원가입 · SignUpDialog (모달)</title>
+<rect width="364" height="424" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">09 회원가입 · SignUpDialog (모달)</text>
+<text x="332" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">300 × 236</text>
+<g id="창">
+<rect x="32" y="72" width="300" height="236" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
+<path d="M32 100V82a10 10 0 0 1 10 -10H322a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
+<circle cx="48" cy="86" r="6" fill="#FF5F57"/>
+<circle cx="68" cy="86" r="6" fill="#FEBC2E"/>
+<circle cx="88" cy="86" r="6" fill="#28C840"/>
+<text x="182.0" y="91" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">회원가입</text>
+</g>
+<g id="내용">
+<text x="48" y="134" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">아이디</text>
+<g id="JTextField">
+<rect x="142" y="116" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="150" y="133.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">hong</text>
+</g>
+<text x="48" y="168" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">비밀번호</text>
+<g id="JTextField">
+<rect x="142" y="150" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="150" y="167.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">●●●●</text>
+</g>
+<text x="48" y="202" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">이름</text>
+<g id="JTextField">
+<rect x="142" y="184" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="150" y="201.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">홍길동</text>
+</g>
+<text x="48" y="236" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">전화번호</text>
+<g id="JTextField">
+<rect x="142" y="218" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="150" y="235.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">010-1234-5678</text>
+</g>
+<g id="JButton 가입">
+<rect x="48" y="260" width="268" height="30" rx="6" fill="#0A84FF"/>
+<text x="182.0" y="279.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#FFFFFF">가입</text>
+</g>
+<g id="표시 1"><circle cx="40" cy="116" r="10" fill="#FF3B30"/><text x="40" y="120" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text></g>
+<g id="표시 2"><circle cx="40" cy="260" r="10" fill="#FF3B30"/><text x="40" y="264" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
+</g>
+<g id="범례">
+<text x="32" y="340" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
+<circle cx="41" cy="360" r="9" fill="#FF3B30"/>
+<text x="41" y="364" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
+<text x="58" y="364" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">아이디 · 비밀번호 · 이름은 필수, 전화번호는 선택</text>
+<circle cx="41" cy="382" r="9" fill="#FF3B30"/>
+<text x="41" y="386" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="58" y="386" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">가입: 아이디 중복 확인(existsById) 후 MemberDAO.insert</text>
+</g>
+</svg>

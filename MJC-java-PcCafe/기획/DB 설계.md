@@ -5,6 +5,72 @@ tags: [pc방, 기획, db]
 
 관리자 계정은 `member.is_admin = TRUE`로 구분한다.
 
+## E-R 다이어그램
+
+```mermaid
+erDiagram
+    member |o--o| seat : "사용 중"
+    member |o--o{ orders : "주문"
+    menu |o--o{ orders : "주문된 메뉴"
+    member |o--o{ payment : "결제"
+
+    member {
+        varchar id PK "아이디"
+        varchar password "비밀번호"
+        varchar name "이름"
+        varchar phone "전화번호"
+        int remain_seconds "남은 시간(초)"
+        boolean is_admin "관리자 여부"
+        datetime created_at "가입일"
+    }
+    seat {
+        int seat_no PK "좌석 번호"
+        varchar status "EMPTY / USING"
+        varchar member_id FK "앉은 회원"
+    }
+    menu {
+        int menu_id PK "메뉴 번호"
+        varchar name "이름"
+        int price "가격"
+        varchar category "분류"
+        int stock "재고"
+    }
+    orders {
+        int order_id PK "주문 번호"
+        varchar member_id FK "주문한 회원"
+        int seat_no "주문한 좌석"
+        int menu_id FK "메뉴"
+        int qty "수량"
+        varchar status "WAIT / DONE"
+        datetime ordered_at "주문 시각"
+    }
+    payment {
+        int pay_id PK "결제 번호"
+        varchar member_id FK "결제한 회원"
+        varchar type "TIME / FOOD"
+        int amount "금액 (환불은 음수)"
+        datetime paid_at "결제 시각"
+    }
+    time_product {
+        int product_id PK "상품 번호"
+        int minutes "시간(분)"
+        int price "가격"
+    }
+```
+
+**관계 읽는 법**
+
+| 관계 | 뜻 |
+| --- | --- |
+| member — seat (0..1 : 0..1) | 좌석에는 회원이 없거나 1명. 회원은 좌석에 앉아 있지 않거나 1자리 (1자리 제한은 앱에서 검사) |
+| member — orders (0..1 : 0..N) | 회원 1명이 주문 여러 개. 회원이 삭제되면 주문의 `member_id`는 NULL (기록은 남음) |
+| menu — orders (0..1 : 0..N) | 메뉴 1개가 여러 주문에 들어감. 메뉴가 삭제되면 `menu_id`는 NULL |
+| member — payment (0..1 : 0..N) | 회원 1명이 결제 여러 번 |
+
+- 모든 외래키는 `ON DELETE SET NULL`: 회원이나 메뉴를 지워도 주문·결제 기록은 남아서 매출이 안 바뀐다.
+- `orders.seat_no`는 외래키가 아니다. 주문 당시 좌석 번호를 기록으로만 남긴다.
+- `time_product`는 다른 테이블과 연결이 없는 요금표다. 시간을 구매하면 `payment`에 금액만 기록된다.
+
 ## 테이블
 
 ```sql

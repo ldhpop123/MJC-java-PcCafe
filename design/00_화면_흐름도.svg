@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="720" viewBox="0 0 1000 720"><title>00 화면 흐름도</title><rect width="1000" height="720" fill="#FFFFFF"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#636366"/></marker></defs>
+<text x="32" y="44" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="20" font-weight="700" fill="#1D1D1F">00 화면 흐름도</text>
+<text x="32" y="66" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" fill="#6E6E73">실선 = 화면 이동, 점선 = 창끼리 메서드 호출 (한 JVM 안)</text>
+<g id="실행">
+<rect x="32" y="100" width="120" height="56" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="92.0" y="124" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">실행</text>
+<text x="92.0" y="144" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">Main</text>
+</g>
+<g id="관리자 로그인">
+<rect x="200" y="100" width="170" height="56" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="285.0" y="124" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">관리자 로그인</text>
+<text x="285.0" y="144" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">01 AdminLoginFrame</text>
+</g>
+<g id="관리자 창 · 좌석">
+<rect x="430" y="100" width="210" height="56" rx="8" fill="#E5F1FF" stroke="#0A84FF" stroke-width="2"/>
+<text x="535.0" y="124" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">관리자 창 · 좌석</text>
+<text x="535.0" y="144" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">02 AdminFrame</text>
+</g>
+<g id="관리 탭">
+<rect x="740" y="84" width="220" height="200" rx="8" fill="#F5F5F7" stroke="#C7C7CC"/>
+<text x="756" y="106" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" font-weight="700" fill="#6E6E73">관리 탭 (BasePanel)</text>
+<g id="탭 회원 관리">
+<rect x="756" y="118" width="188" height="32" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="850.0" y="139.0" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">03 회원 관리</text>
+</g>
+<g id="탭 메뉴 관리">
+<rect x="756" y="158" width="188" height="32" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="850.0" y="179.0" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">04 메뉴 관리</text>
+</g>
+<g id="탭 주문">
+<rect x="756" y="198" width="188" height="32" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="850.0" y="219.0" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">05 주문</text>
+</g>
+<g id="탭 매출">
+<rect x="756" y="238" width="188" height="32" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="850.0" y="259.0" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">06 매출</text>
+</g>
+</g>
+<g id="게스트 · 로그인">
+<rect x="430" y="290" width="210" height="56" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="535.0" y="314" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">게스트 · 로그인</text>
+<text x="535.0" y="334" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">07 GuestFrame</text>
+</g>
+<g id="회원가입">
+<rect x="160" y="290" width="180" height="56" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="250.0" y="314" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">회원가입</text>
+<text x="250.0" y="334" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">09 SignUpDialog</text>
+</g>
+<g id="게스트 · 사용 중">
+<rect x="430" y="470" width="210" height="56" rx="8" fill="#E5F1FF" stroke="#0A84FF" stroke-width="2"/>
+<text x="535.0" y="494" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">게스트 · 사용 중</text>
+<text x="535.0" y="514" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">08 GuestFrame</text>
+</g>
+<g id="시간 구매 팝업">
+<rect x="340" y="610" width="170" height="48" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="425.0" y="634" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">시간 구매 팝업</text>
+<text x="425.0" y="654" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">10</text>
+</g>
+<g id="음식 주문 팝업">
+<rect x="560" y="610" width="170" height="48" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="645.0" y="634" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">음식 주문 팝업</text>
+<text x="645.0" y="654" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">11</text>
+</g>
+<g id="종료 (endSession)">
+<rect x="32" y="450" width="250" height="96" rx="8" fill="#FFFFFF" stroke="#8E8E93" stroke-width="1.25"/>
+<text x="157.0" y="474" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#1D1D1F">종료 (endSession)</text>
+<text x="157.0" y="494" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">사용 종료 버튼 · 창 X</text>
+<text x="157.0" y="511" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">남은 시간 0초 · 관리자 강제 종료</text>
+</g>
+<path d="M152 128H198" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)"/>
+<path d="M370 128H428" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)"/>
+<text x="399" y="90" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">admin 계정</text>
+<path d="M640 120H738" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)"/>
+<text x="689" y="112" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">탭 선택</text>
+<path d="M535 156V288" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)"/>
+<text x="545" y="214" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="start" fill="#6E6E73">게스트 추가</text>
+<text x="545" y="230" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="start" fill="#6E6E73">(new GuestFrame)</text>
+<path d="M428 318H342" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M535 346V468" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)"/>
+<text x="545" y="400" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="start" fill="#6E6E73">로그인 성공</text>
+<text x="545" y="416" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="start" fill="#6E6E73">TimerThread 시작</text>
+<path d="M480 526V608" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)"/>
+<path d="M590 526V608" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)"/>
+<path d="M428 498H284" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)"/>
+<path d="M157 450V400H470V348" fill="none" stroke="#636366" stroke-width="1.25" marker-end="url(#arrow)"/>
+<text x="170" y="392" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="start" fill="#6E6E73">시간 저장 · 좌석 비움</text>
+<path d="M640 498H690V140H642" fill="none" stroke="#636366" stroke-width="1.25" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+<text x="700" y="330" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" fill="#6E6E73">1초마다 좌석판 갱신</text>
+<text x="700" y="346" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" fill="#6E6E73">채팅 · 주문 알림 ↑</text>
+<text x="700" y="372" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" fill="#6E6E73">시간 ± · 강제 종료</text>
+<text x="700" y="388" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" fill="#6E6E73">채팅 ↓</text>
+<text x="385" y="308" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="middle" fill="#6E6E73">가입 / 닫힘</text></svg>
