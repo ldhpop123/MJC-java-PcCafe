@@ -1,0 +1,16 @@
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Maven
+target/
+
+# DB 접속 정보 (db.properties.example 참고)
+src/main/resources/db.properties
+
+# Obsidian 개인 설정
+**/.obsidian/workspace.json
+
+# macOS
+.DS_Store

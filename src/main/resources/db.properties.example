@@ -1,0 +1,4 @@
+# 이 파일을 같은 폴더에 db.properties로 복사한 뒤 본인 MySQL 정보로 바꾸세요.
+db.url=jdbc:mysql://localhost:3306/pccafe?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+db.user=root
+db.password=

@@ -184,35 +184,51 @@ CREATE TABLE payment (
 ## 7. 패키지 / 클래스 구조
 
 ```
-src/
-├─ Main.java                 // AdminFrame 실행
+pom.xml                          // Maven (mysql-connector-j)
+sql/
+└─ schema.sql                    // 테이블 생성 + 초기 데이터
+src/main/resources/
+└─ db.properties.example         // 복사해서 db.properties로 사용 (git 제외)
+src/main/java/pccafe/
+├─ Main.java                     // AdminFrame 실행
 ├─ db/
-│  └─ DBUtil.java            // Connection 관리
+│  └─ DBUtil.java                // Connection 관리
 ├─ dto/
 │  ├─ Member.java
 │  ├─ Seat.java
 │  ├─ Menu.java
 │  ├─ Order.java
-│  └─ Payment.java
+│  ├─ Payment.java
+│  └─ TimeProduct.java
 ├─ dao/
 │  ├─ MemberDAO.java
 │  ├─ SeatDAO.java
 │  ├─ MenuDAO.java
 │  ├─ OrderDAO.java
-│  └─ PaymentDAO.java
+│  ├─ PaymentDAO.java
+│  └─ TimeProductDAO.java
 ├─ ui/
-│  ├─ BaseFrame.java         // abstract, extends JFrame
-│  ├─ AdminFrame.java        // extends BaseFrame
-│  ├─ GuestFrame.java        // extends BaseFrame
-│  ├─ SignUpDialog.java
-│  └─ panel/                 // 좌석판, 채팅, 메뉴관리 등 패널
-└─ thread/
-   └─ TimerThread.java
-sql/
-└─ schema.sql                // 테이블 생성 + 초기 데이터
+│  ├─ BaseFrame.java             // abstract, extends JFrame
+│  ├─ AdminFrame.java            // extends BaseFrame
+│  ├─ GuestFrame.java            // extends BaseFrame
+│  └─ SignUpDialog.java
+├─ thread/
+│  └─ TimerThread.java
+└─ util/
+   └─ TimeFormat.java            // 초 → "HH:mm:ss"
 ```
 
-## 8. 개발 순서
+> `BaseFrame`은 생성자에서 `initUI()`를 부르지 않고 `display()`에서 부른다.
+> 생성자에서 부르면 자식 클래스의 필드가 초기화되기 전에 실행되기 때문이다.
+
+## 8. 실행 방법
+
+1. MySQL 실행 후 스키마 생성: `mysql -u root -p < sql/schema.sql`
+2. `src/main/resources/db.properties.example`을 `db.properties`로 복사하고 계정 정보 입력
+3. IntelliJ에서 `pom.xml`을 Maven 프로젝트로 열기 → `pccafe.Main` 실행
+4. 테스트 계정: `test` / `1234` (1시간 보유)
+
+## 9. 개발 순서
 
 1. DB 스키마(`schema.sql`) 작성, `DBUtil` 연결 확인
 2. `BaseFrame` / `AdminFrame` / `GuestFrame` 뼈대, 게스트 추가 버튼
