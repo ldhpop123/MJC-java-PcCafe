@@ -1,7 +1,13 @@
 package pccafe.ui;
 
 import pccafe.dao.SeatDAO;
+import pccafe.dto.Member;
 import pccafe.dto.Seat;
+import pccafe.ui.panel.BasePanel;
+import pccafe.ui.panel.MemberPanel;
+import pccafe.ui.panel.MenuPanel;
+import pccafe.ui.panel.OrderPanel;
+import pccafe.ui.panel.SalesPanel;
 import pccafe.util.TimeFormat;
 
 import javax.swing.BorderFactory;
@@ -18,6 +24,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -40,9 +47,10 @@ public class AdminFrame extends BaseFrame {
     private JLabel selectedLabel;
     private JTextArea chatLog;
     private JTextField chatInput;
+    private OrderPanel orderPanel;
 
-    public AdminFrame() {
-        super("PC방 관리자", 1000, 650);
+    public AdminFrame(Member loginAdmin) {
+        super("PC방 관리자 - " + loginAdmin.getName(), 1000, 650);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -59,12 +67,19 @@ public class AdminFrame extends BaseFrame {
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
         top.add(addGuest);
 
+        orderPanel = new OrderPanel();
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("좌석", createSeatTab());
-        tabs.addTab("회원 관리", placeholder("TODO: 회원 조회 / 검색 / 수정 / 삭제 (MemberDAO)"));
-        tabs.addTab("메뉴 관리", placeholder("TODO: 메뉴 추가 / 수정 / 삭제 (MenuDAO)"));
-        tabs.addTab("주문", placeholder("TODO: 주문 목록, 상태 변경 (OrderDAO)"));
-        tabs.addTab("매출", placeholder("TODO: 오늘 시간 / 음식 매출 (PaymentDAO.sumToday)"));
+        tabs.addTab("회원 관리", new MemberPanel(this));
+        tabs.addTab("메뉴 관리", new MenuPanel());
+        tabs.addTab("주문", orderPanel);
+        tabs.addTab("매출", new SalesPanel());
+        // 탭을 열 때마다 DB에서 다시 읽기
+        tabs.addChangeListener(e -> {
+            if (tabs.getSelectedComponent() instanceof BasePanel panel) {
+                panel.refresh();
+            }
+        });
 
         add(top, BorderLayout.NORTH);
         add(tabs, BorderLayout.CENTER);
@@ -200,12 +215,6 @@ public class AdminFrame extends BaseFrame {
         return null;
     }
 
-    private JPanel placeholder(String text) {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(new JLabel(text, SwingConstants.CENTER), BorderLayout.CENTER);
-        return panel;
-    }
-
     // ---------- GuestFrame에서 호출 (모두 EDT에서 호출됨) ----------
 
     public void updateSeat(int seatNo, String name, int remainSeconds) {
@@ -230,6 +239,12 @@ public class AdminFrame extends BaseFrame {
 
     public void receiveMessage(int seatNo, String name, String message) {
         chatLog.append("[" + seatNo + "번 " + name + "] " + message + "\n");
+    }
+
+    public void onNewOrder(int seatNo, String name, String summary) {
+        chatLog.append("[주문] " + seatNo + "번 " + name + ": " + summary + "\n");
+        orderPanel.refresh();
+        Toolkit.getDefaultToolkit().beep();
     }
 
     public void removeGuest(GuestFrame guest) {

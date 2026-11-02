@@ -7,13 +7,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.sql.SQLException;
 
 public class SignUpDialog extends JDialog {
@@ -27,15 +25,7 @@ public class SignUpDialog extends JDialog {
     public SignUpDialog(JFrame owner) {
         super(owner, "회원가입", true);
 
-        JPanel form = new JPanel(new GridLayout(0, 2, 6, 6));
-        form.add(new JLabel("아이디"));
-        form.add(idField);
-        form.add(new JLabel("비밀번호"));
-        form.add(pwField);
-        form.add(new JLabel("이름"));
-        form.add(nameField);
-        form.add(new JLabel("전화번호"));
-        form.add(phoneField);
+        JPanel form = Forms.labeled("아이디", idField, "비밀번호", pwField, "이름", nameField, "전화번호", phoneField);
 
         JButton submit = new JButton("가입");
         submit.addActionListener(e -> signUp());

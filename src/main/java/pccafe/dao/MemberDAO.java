@@ -66,6 +66,23 @@ public class MemberDAO {
         return list;
     }
 
+    // 아이디 또는 이름에 keyword가 들어간 회원. 빈 문자열이면 전체
+    public List<Member> search(String keyword) throws SQLException {
+        String sql = "SELECT * FROM member WHERE id LIKE ? OR name LIKE ? ORDER BY created_at";
+        List<Member> list = new ArrayList<>();
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "%" + keyword + "%");
+            ps.setString(2, "%" + keyword + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(map(rs));
+                }
+            }
+        }
+        return list;
+    }
+
     public void update(Member m) throws SQLException {
         String sql = "UPDATE member SET password = ?, name = ?, phone = ?, remain_seconds = ? WHERE id = ?";
         try (Connection conn = DBUtil.getConnection();

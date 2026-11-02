@@ -51,6 +51,28 @@ public class MenuDAO {
         }
     }
 
+    // 재고가 충분할 때만 차감. 부족하면 false
+    public boolean decreaseStock(int menuId, int qty) throws SQLException {
+        String sql = "UPDATE menu SET stock = stock - ? WHERE menu_id = ? AND stock >= ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, qty);
+            ps.setInt(2, menuId);
+            ps.setInt(3, qty);
+            return ps.executeUpdate() == 1;
+        }
+    }
+
+    public void increaseStock(int menuId, int qty) throws SQLException {
+        String sql = "UPDATE menu SET stock = stock + ? WHERE menu_id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, qty);
+            ps.setInt(2, menuId);
+            ps.executeUpdate();
+        }
+    }
+
     public void delete(int menuId) throws SQLException {
         String sql = "DELETE FROM menu WHERE menu_id = ?";
         try (Connection conn = DBUtil.getConnection();

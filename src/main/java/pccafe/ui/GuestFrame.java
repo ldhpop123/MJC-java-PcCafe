@@ -1,10 +1,14 @@
 package pccafe.ui;
 
 import pccafe.dao.MemberDAO;
+import pccafe.dao.MenuDAO;
+import pccafe.dao.OrderDAO;
 import pccafe.dao.PaymentDAO;
 import pccafe.dao.SeatDAO;
 import pccafe.dao.TimeProductDAO;
 import pccafe.dto.Member;
+import pccafe.dto.Menu;
+import pccafe.dto.Order;
 import pccafe.dto.Payment;
 import pccafe.dto.TimeProduct;
 import pccafe.thread.TimerThread;
@@ -18,8 +22,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
@@ -42,6 +48,8 @@ public class GuestFrame extends BaseFrame {
     private final SeatDAO seatDAO = new SeatDAO();
     private final PaymentDAO paymentDAO = new PaymentDAO();
     private final TimeProductDAO timeProductDAO = new TimeProductDAO();
+    private final MenuDAO menuDAO = new MenuDAO();
+    private final OrderDAO orderDAO = new OrderDAO();
 
     // 타이머 스레드에서도 읽으므로 volatile
     private volatile Member member;   // null = 로그인 전
@@ -90,13 +98,7 @@ public class GuestFrame extends BaseFrame {
         pwField = new JPasswordField(12);
         seatCombo = new JComboBox<>();
 
-        JPanel form = new JPanel(new GridLayout(0, 2, 6, 6));
-        form.add(new JLabel("아이디"));
-        form.add(idField);
-        form.add(new JLabel("비밀번호"));
-        form.add(pwField);
-        form.add(new JLabel("좌석"));
-        form.add(seatCombo);
+        JPanel form = Forms.labeled("아이디", idField, "비밀번호", pwField, "좌석", seatCombo);
 
         JButton login = new JButton("로그인");
         JButton signUp = new JButton("회원가입");
@@ -111,11 +113,15 @@ public class GuestFrame extends BaseFrame {
         JLabel title = new JLabel("PC방 로그인", SwingConstants.CENTER);
         title.setFont(title.getFont().deriveFont(Font.BOLD, 22f));
 
-        JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
+        // 제목 → 폼 → 버튼을 위에서부터 붙여 쌓고, 남는 공간은 아래로 보낸다
+        JPanel body = new JPanel(new BorderLayout(0, 16));
+        body.add(form, BorderLayout.NORTH);
+        body.add(buttons, BorderLayout.CENTER);
+
+        JPanel panel = new JPanel(new BorderLayout(0, 24));
+        panel.setBorder(BorderFactory.createEmptyBorder(80, 40, 40, 40));
         panel.add(title, BorderLayout.NORTH);
-        panel.add(form, BorderLayout.CENTER);
-        panel.add(buttons, BorderLayout.SOUTH);
+        panel.add(body, BorderLayout.CENTER);
         return panel;
     }
 
@@ -210,7 +216,7 @@ public class GuestFrame extends BaseFrame {
         JButton order = new JButton("음식 주문");
         JButton logout = new JButton("사용 종료");
         buy.addActionListener(e -> buyTime());
-        order.addActionListener(e -> showInfo("TODO: 음식 주문 (MenuDAO, OrderDAO)"));
+        order.addActionListener(e -> orderFood());
         logout.addActionListener(e -> endSession());
 
         JPanel buttons = new JPanel(new FlowLayout());
@@ -245,6 +251,50 @@ public class GuestFrame extends BaseFrame {
             paymentDAO.insert(new Payment(m.getId(), Payment.TIME, p.getPrice()));
             addSeconds(p.getMinutes() * 60);
             saveRemainTime();
+        } catch (SQLException e) {
+            showError(e);
+        }
+    }
+
+    // 재고 차감 → 주문 저장 → 결제 기록 → 관리자에게 알림
+    private void orderFood() {
+        Member m = member;
+        if (m == null) {
+            return;
+        }
+        try {
+            List<Menu> menus = menuDAO.findAll();
+            if (menus.isEmpty()) {
+                showInfo("등록된 메뉴가 없습니다.");
+                return;
+            }
+            JComboBox<Menu> menuCombo = new JComboBox<>(menus.toArray(new Menu[0]));
+            JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
+            JPanel form = new JPanel(new GridLayout(0, 2, 6, 6));
+            form.add(new JLabel("메뉴"));
+            form.add(menuCombo);
+            form.add(new JLabel("수량"));
+            form.add(qtySpinner);
+
+            int answer = JOptionPane.showConfirmDialog(this, form, "음식 주문",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            if (answer != JOptionPane.OK_OPTION) {
+                return;
+            }
+
+            Menu menu = (Menu) menuCombo.getSelectedItem();
+            int qty = (Integer) qtySpinner.getValue();
+            if (!menuDAO.decreaseStock(menu.getMenuId(), qty)) {
+                showInfo("재고가 부족합니다.");
+                return;
+            }
+            int total = menu.getPrice() * qty;
+            orderDAO.insert(new Order(m.getId(), seatNo, menu.getMenuId(), qty));
+            paymentDAO.insert(new Payment(m.getId(), Payment.FOOD, total));
+
+            admin.onNewOrder(seatNo, m.getName(), menu.getName() + " " + qty + "개");
+            chatLog.append(String.format("[주문] %s %d개 (%,d원)%n", menu.getName(), qty, total));
+            showInfo("주문되었습니다.");
         } catch (SQLException e) {
             showError(e);
         }

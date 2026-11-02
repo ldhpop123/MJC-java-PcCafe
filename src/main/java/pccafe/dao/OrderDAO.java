@@ -25,21 +25,24 @@ public class OrderDAO {
         }
     }
 
-    public List<Order> findByStatus(String status) throws SQLException {
-        String sql = "SELECT * FROM orders WHERE status = ? ORDER BY ordered_at";
+    // 대기 중인 주문 먼저, 그 안에서는 최근 주문 먼저. 메뉴 이름/가격은 JOIN으로 가져온다
+    public List<Order> findAll() throws SQLException {
+        String sql = "SELECT o.*, m.name AS menu_name, m.price "
+                + "FROM orders o LEFT JOIN menu m ON o.menu_id = m.menu_id "
+                + "ORDER BY o.status = 'DONE', o.ordered_at DESC";
         List<Order> list = new ArrayList<>();
         try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, status);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Order o = new Order(rs.getString("member_id"), rs.getInt("seat_no"),
-                            rs.getInt("menu_id"), rs.getInt("qty"));
-                    o.setOrderId(rs.getInt("order_id"));
-                    o.setStatus(rs.getString("status"));
-                    o.setOrderedAt(rs.getTimestamp("ordered_at").toLocalDateTime());
-                    list.add(o);
-                }
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Order o = new Order(rs.getString("member_id"), rs.getInt("seat_no"),
+                        rs.getInt("menu_id"), rs.getInt("qty"));
+                o.setOrderId(rs.getInt("order_id"));
+                o.setStatus(rs.getString("status"));
+                o.setOrderedAt(rs.getTimestamp("ordered_at").toLocalDateTime());
+                o.setMenuName(rs.getString("menu_name"));
+                o.setPrice(rs.getInt("price"));
+                list.add(o);
             }
         }
         return list;

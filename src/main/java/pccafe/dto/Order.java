@@ -14,6 +14,10 @@ public class Order {
     private String status;
     private LocalDateTime orderedAt;
 
+    // 조회할 때 menu 테이블에서 JOIN으로 채움 (메뉴가 삭제됐으면 null / 0)
+    private String menuName;
+    private int price;
+
     public Order() {
     }
 
@@ -45,4 +49,12 @@ public class Order {
 
     public LocalDateTime getOrderedAt() { return orderedAt; }
     public void setOrderedAt(LocalDateTime orderedAt) { this.orderedAt = orderedAt; }
+
+    public String getMenuName() { return menuName; }
+    public void setMenuName(String menuName) { this.menuName = menuName; }
+
+    public int getPrice() { return price; }
+    public void setPrice(int price) { this.price = price; }
+
+    public int getTotal() { return price * qty; }
 }
