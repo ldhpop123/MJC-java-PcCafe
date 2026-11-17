@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SeatDAO {
+    // 게스트 창마다 SeatDAO를 따로 만들기 때문에, 모든 창이 같은 자물쇠를 쓰도록 static으로 둔다.
+    // 좌석 상태를 바꾸는 메서드는 이 자물쇠를 잡은 스레드 하나만 실행할 수 있다.
+    private static final Object LOCK = new Object();
 
     public List<Seat> findAll() throws SQLException {
         String sql = "SELECT * FROM seat ORDER BY seat_no";
@@ -40,30 +43,36 @@ public class SeatDAO {
 
     // 빈 좌석일 때만 사용 시작. 다른 손님이 먼저 앉았으면 false
     public boolean startUse(int seatNo, String memberId) throws SQLException {
-        String sql = "UPDATE seat SET status = 'USING', member_id = ? WHERE seat_no = ? AND status = 'EMPTY'";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, memberId);
-            ps.setInt(2, seatNo);
-            return ps.executeUpdate() == 1;
+        synchronized (LOCK) {
+            String sql = "UPDATE seat SET status = 'USING', member_id = ? WHERE seat_no = ? AND status = 'EMPTY'";
+            try (Connection conn = DBUtil.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, memberId);
+                ps.setInt(2, seatNo);
+                return ps.executeUpdate() == 1;
+            }
         }
     }
 
     public void endUse(int seatNo) throws SQLException {
-        String sql = "UPDATE seat SET status = 'EMPTY', member_id = NULL WHERE seat_no = ?";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, seatNo);
-            ps.executeUpdate();
+        synchronized (LOCK) {
+            String sql = "UPDATE seat SET status = 'EMPTY', member_id = NULL WHERE seat_no = ?";
+            try (Connection conn = DBUtil.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, seatNo);
+                ps.executeUpdate();
+            }
         }
     }
 
     // 프로그램 시작 시 호출: 지난번 비정상 종료로 남은 '사용중' 상태를 비운다
     public void resetAll() throws SQLException {
-        String sql = "UPDATE seat SET status = 'EMPTY', member_id = NULL";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.executeUpdate();
+        synchronized (LOCK) {
+            String sql = "UPDATE seat SET status = 'EMPTY', member_id = NULL";
+            try (Connection conn = DBUtil.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.executeUpdate();
+            }
         }
     }
 }
