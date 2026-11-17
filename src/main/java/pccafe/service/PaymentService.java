@@ -75,9 +75,11 @@ public class PaymentService {
                 }
             }
             // 쓴 포인트는 돌려주고, 이 결제로 적립된 포인트는 회수한다
-            if (original.getMemberId() != null) {
-                memberDAO.addPoint(conn, original.getMemberId(),
-                        original.getPointAmount() - earnedPoint(original));
+            // 적립분을 이미 다른 결제에 써 버렸으면 회수할 수 없으므로 취소를 거부한다 (rollback)
+            if (original.getMemberId() != null
+                    && !memberDAO.addPoint(conn, original.getMemberId(),
+                            original.getPointAmount() - earnedPoint(original))) {
+                throw new PaymentException("이 주문으로 적립된 포인트를 손님이 이미 사용해서 취소할 수 없습니다.");
             }
             return null;
         });

@@ -134,13 +134,14 @@ public class MemberDAO {
         }
     }
 
-    // 환불할 때: 포인트를 delta만큼 바꾼다. 적립분을 이미 써 버렸으면 0에서 멈춘다
-    public void addPoint(Connection conn, String id, int delta) throws SQLException {
-        String sql = "UPDATE member SET point = GREATEST(point + ?, 0) WHERE id = ?";
+    // 환불할 때: 포인트를 delta만큼 바꾼다. 결과가 음수가 되면(적립분을 이미 써 버렸으면) 바꾸지 않고 false
+    public boolean addPoint(Connection conn, String id, int delta) throws SQLException {
+        String sql = "UPDATE member SET point = point + ? WHERE id = ? AND point + ? >= 0";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, delta);
             ps.setString(2, id);
-            ps.executeUpdate();
+            ps.setInt(3, delta);
+            return ps.executeUpdate() == 1;
         }
     }
 
