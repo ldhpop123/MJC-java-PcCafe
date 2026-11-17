@@ -1,6 +1,8 @@
 package pccafe.ui;
 
+import pccafe.dao.ChatDAO;
 import pccafe.dao.SeatDAO;
+import pccafe.dto.ChatMessage;
 import pccafe.dto.Member;
 import pccafe.dto.Seat;
 import pccafe.ui.panel.BasePanel;
@@ -8,6 +10,7 @@ import pccafe.ui.panel.MemberPanel;
 import pccafe.ui.panel.MenuPanel;
 import pccafe.ui.panel.OrderPanel;
 import pccafe.ui.panel.SalesPanel;
+import pccafe.ui.panel.TimeProductPanel;
 import pccafe.util.TimeFormat;
 
 import javax.swing.BorderFactory;
@@ -38,19 +41,24 @@ public class AdminFrame extends BaseFrame {
     private static final Color EMPTY_COLOR = new Color(230, 230, 230);
     private static final Color USING_COLOR = new Color(170, 215, 255);
     private static final Color SELECTED_BORDER = new Color(30, 110, 220);
+    private static final int CHAT_HISTORY_SIZE = 50;
 
     private final List<GuestFrame> guests = new ArrayList<>();
     private final Map<Integer, JLabel> seatLabels = new LinkedHashMap<>();
     private final SeatDAO seatDAO = new SeatDAO();
+    private final ChatDAO chatDAO = new ChatDAO();
 
     private int selectedSeat = -1;
+    private JPanel board;
     private JLabel selectedLabel;
     private JTextArea chatLog;
     private JTextField chatInput;
     private OrderPanel orderPanel;
+    private final Member loginAdmin;
 
     public AdminFrame(Member loginAdmin) {
         super("PC방 관리자 - " + loginAdmin.getName(), 1000, 650);
+        this.loginAdmin = loginAdmin;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -67,11 +75,12 @@ public class AdminFrame extends BaseFrame {
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
         top.add(addGuest);
 
-        orderPanel = new OrderPanel();
+        orderPanel = new OrderPanel(loginAdmin.getId());
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("좌석", createSeatTab());
         tabs.addTab("회원 관리", new MemberPanel(this));
         tabs.addTab("메뉴 관리", new MenuPanel());
+        tabs.addTab("요금제 관리", new TimeProductPanel());
         tabs.addTab("주문", orderPanel);
         tabs.addTab("매출", new SalesPanel());
         // 탭을 열 때마다 DB에서 다시 읽기
@@ -95,8 +104,21 @@ public class AdminFrame extends BaseFrame {
     // ---------- 좌석 탭 ----------
 
     private JPanel createSeatTab() {
-        JPanel board = new JPanel(new GridLayout(0, 4, 8, 8));
+        board = new JPanel(new GridLayout(0, 4, 8, 8));
         board.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        rebuildBoard();
+
+        JPanel tab = new JPanel(new BorderLayout());
+        // 좌석이 많아지면 스크롤
+        tab.add(new JScrollPane(board), BorderLayout.CENTER);
+        tab.add(createSidePanel(), BorderLayout.EAST);
+        return tab;
+    }
+
+    // seat 테이블을 다시 읽어 좌석판을 새로 그린다 (좌석 추가 / 삭제 후 호출)
+    private void rebuildBoard() {
+        board.removeAll();
+        seatLabels.clear();
         try {
             for (Seat seat : seatDAO.findAll()) {
                 JLabel label = createSeatLabel(seat.getSeatNo());
@@ -106,11 +128,50 @@ public class AdminFrame extends BaseFrame {
         } catch (SQLException e) {
             showError(e);
         }
+        // 사용 중인 좌석은 게스트 창이 이름과 남은 시간을 다시 그려 준다
+        for (GuestFrame guest : guests) {
+            guest.redrawSeat();
+        }
+        if (!seatLabels.containsKey(selectedSeat)) {
+            selectedSeat = -1;
+            if (selectedLabel != null) {
+                selectedLabel.setText("선택된 좌석: 없음");
+            }
+        } else {
+            seatLabels.get(selectedSeat).setBorder(BorderFactory.createLineBorder(SELECTED_BORDER, 3));
+        }
+        board.revalidate();
+        board.repaint();
+    }
 
-        JPanel tab = new JPanel(new BorderLayout());
-        tab.add(board, BorderLayout.CENTER);
-        tab.add(createSidePanel(), BorderLayout.EAST);
-        return tab;
+    private void addSeat() {
+        try {
+            int no = seatDAO.insertNext();
+            rebuildBoard();
+            showInfo(no + "번 좌석을 추가했습니다.");
+        } catch (SQLException e) {
+            showError(e);
+        }
+    }
+
+    private void deleteSeat() {
+        if (selectedSeat == -1) {
+            showInfo("삭제할 좌석을 선택하세요.");
+            return;
+        }
+        int no = selectedSeat;
+        if (!confirm(no + "번 좌석을 삭제할까요?")) {
+            return;
+        }
+        try {
+            if (!seatDAO.deleteIfEmpty(no)) {
+                showInfo("사용 중인 좌석은 삭제할 수 없습니다.");
+                return;
+            }
+            rebuildBoard();
+        } catch (SQLException e) {
+            showError(e);
+        }
     }
 
     private JLabel createSeatLabel(int seatNo) {
@@ -146,6 +207,24 @@ public class AdminFrame extends BaseFrame {
         selectedSeat = seatNo;
         seatLabels.get(seatNo).setBorder(BorderFactory.createLineBorder(SELECTED_BORDER, 3));
         selectedLabel.setText("선택된 좌석: " + seatNo + "번");
+        showChatHistory(seatNo);
+    }
+
+    // 사용 중인 좌석을 고르면 그 손님과 나눈 이전 대화를 DB에서 불러온다
+    private void showChatHistory(int seatNo) {
+        GuestFrame guest = findGuestBySeat(seatNo);
+        if (guest == null) {
+            return;
+        }
+        try {
+            chatLog.setText("── " + seatNo + "번 좌석 " + guest.getMemberId() + " 님과의 대화 ──\n");
+            for (ChatMessage m : chatDAO.findRecent(guest.getMemberId(), CHAT_HISTORY_SIZE)) {
+                String who = ChatMessage.ADMIN.equals(m.getSender()) ? "관리자" : m.getMemberId();
+                chatLog.append("[" + who + "] " + m.getContent() + "\n");
+            }
+        } catch (SQLException e) {
+            showError(e);
+        }
     }
 
     private JPanel createSidePanel() {
@@ -158,11 +237,20 @@ public class AdminFrame extends BaseFrame {
         minus.addActionListener(e -> withSelectedGuest(g -> g.addSeconds(-600)));
         kick.addActionListener(e -> withSelectedGuest(g -> g.forceLogout("관리자가 사용을 종료했습니다.")));
 
+        JButton addSeat = new JButton("좌석 추가");
+        JButton deleteSeat = new JButton("좌석 삭제");
+        addSeat.addActionListener(e -> addSeat());
+        deleteSeat.addActionListener(e -> deleteSeat());
+        JPanel seatButtons = new JPanel(new GridLayout(1, 2, 4, 4));
+        seatButtons.add(addSeat);
+        seatButtons.add(deleteSeat);
+
         JPanel controls = new JPanel(new GridLayout(0, 1, 4, 4));
         controls.add(selectedLabel);
         controls.add(plus);
         controls.add(minus);
         controls.add(kick);
+        controls.add(seatButtons);
 
         chatLog = new JTextArea();
         chatLog.setEditable(false);
@@ -199,6 +287,12 @@ public class AdminFrame extends BaseFrame {
         GuestFrame guest = findGuestBySeat(selectedSeat);
         if (guest == null) {
             showInfo("사용 중인 좌석을 선택하세요.");
+            return;
+        }
+        try {
+            chatDAO.insert(new ChatMessage(guest.getMemberId(), selectedSeat, ChatMessage.ADMIN, text));
+        } catch (SQLException e) {
+            showError(e);
             return;
         }
         guest.receiveMessage(text);

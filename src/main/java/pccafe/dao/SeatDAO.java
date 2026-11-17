@@ -75,4 +75,37 @@ public class SeatDAO {
             }
         }
     }
+
+    // 마지막 번호 다음 번호로 빈 좌석을 하나 만들고 그 번호를 돌려준다
+    public int insertNext() throws SQLException {
+        synchronized (LOCK) {
+            String maxSql = "SELECT COALESCE(MAX(seat_no), 0) + 1 FROM seat";
+            String insertSql = "INSERT INTO seat (seat_no) VALUES (?)";
+            try (Connection conn = DBUtil.getConnection()) {
+                int next;
+                try (PreparedStatement ps = conn.prepareStatement(maxSql);
+                     ResultSet rs = ps.executeQuery()) {
+                    rs.next();
+                    next = rs.getInt(1);
+                }
+                try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
+                    ps.setInt(1, next);
+                    ps.executeUpdate();
+                }
+                return next;
+            }
+        }
+    }
+
+    // 빈 좌석일 때만 삭제. 사용 중이라 지우지 못했으면 false
+    public boolean deleteIfEmpty(int seatNo) throws SQLException {
+        synchronized (LOCK) {
+            String sql = "DELETE FROM seat WHERE seat_no = ? AND status = 'EMPTY'";
+            try (Connection conn = DBUtil.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, seatNo);
+                return ps.executeUpdate() == 1;
+            }
+        }
+    }
 }

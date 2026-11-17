@@ -28,6 +28,11 @@ public abstract class BaseFrame extends JFrame {
         JOptionPane.showMessageDialog(this, message);
     }
 
+    protected boolean confirm(String message) {
+        return JOptionPane.showConfirmDialog(this, message, "확인", JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION;
+    }
+
     protected void showError(Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, e.getMessage(), "오류", JOptionPane.ERROR_MESSAGE);

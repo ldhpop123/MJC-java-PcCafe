@@ -5,6 +5,7 @@ import pccafe.dto.Menu;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -47,18 +48,25 @@ public class MenuPanel extends BasePanel {
         form.add(new JLabel("재고"));
         form.add(stockField);
 
-        JButton add = new JButton("추가");
-        JButton update = new JButton("수정");
+        // 신규 등록: 입력칸 내용으로 새 메뉴를 만든다
+        // 정보 수정: 표에서 고른 메뉴를 입력칸 내용으로 바꾼다 (재고 직접 정정 포함)
+        // 재고 입고: 표에서 고른 메뉴의 재고에 입고 수량을 더한다
+        // 입력칸 비우기: 선택을 풀고 입력칸을 비운다 (DB는 바뀌지 않음)
+        JButton add = new JButton("신규 메뉴 등록");
+        JButton update = new JButton("정보 수정");
+        JButton restock = new JButton("재고 입고");
         JButton delete = new JButton("삭제");
-        JButton clear = new JButton("새로 입력");
+        JButton clear = new JButton("입력칸 비우기");
         add.addActionListener(e -> addMenu());
         update.addActionListener(e -> updateMenu());
+        restock.addActionListener(e -> restockMenu());
         delete.addActionListener(e -> deleteMenu());
         clear.addActionListener(e -> clearForm());
 
         JPanel buttons = new JPanel(new FlowLayout(FlowLayout.LEFT));
         buttons.add(add);
         buttons.add(update);
+        buttons.add(restock);
         buttons.add(delete);
         buttons.add(clear);
 
@@ -154,6 +162,37 @@ public class MenuPanel extends BasePanel {
         m.setMenuId(target.getMenuId());
         try {
             menuDAO.update(m);
+            refresh();
+        } catch (SQLException e) {
+            showError(e);
+        }
+    }
+
+    private void restockMenu() {
+        Menu target = selected();
+        if (target == null) {
+            showInfo("입고할 메뉴를 선택하세요.");
+            return;
+        }
+        String input = JOptionPane.showInputDialog(this,
+                target.getName() + " 입고 수량 (현재 재고 " + target.getStock() + "개)", "재고 입고",
+                JOptionPane.QUESTION_MESSAGE);
+        if (input == null) {
+            return;
+        }
+        int qty;
+        try {
+            qty = Integer.parseInt(input.trim());
+        } catch (NumberFormatException e) {
+            showInfo("입고 수량은 숫자로 입력하세요.");
+            return;
+        }
+        if (qty <= 0) {
+            showInfo("입고 수량은 1 이상이어야 합니다.");
+            return;
+        }
+        try {
+            menuDAO.increaseStock(target.getMenuId(), qty);
             refresh();
         } catch (SQLException e) {
             showError(e);

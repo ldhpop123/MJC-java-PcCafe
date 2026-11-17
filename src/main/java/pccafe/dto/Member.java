@@ -7,6 +7,7 @@ public class Member {
     private String phone;
     private int remainSeconds;
     private boolean admin;
+    private int point;
 
     public Member() {
     }
@@ -35,4 +36,7 @@ public class Member {
 
     public boolean isAdmin() { return admin; }
     public void setAdmin(boolean admin) { this.admin = admin; }
+
+    public int getPoint() { return point; }
+    public void setPoint(int point) { this.point = point; }
 }

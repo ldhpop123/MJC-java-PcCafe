@@ -11,7 +11,8 @@ Java Swing + MySQL로 만드는 PC방 관리 프로그램입니다.
 | DB | MySQL, JDBC (MySQL Connector/J) |
 | 실행 형태 | 한 JVM, 관리자 창 1 + 게스트 창 N |
 | 핵심 기술 | 상속, 스레드, 이벤트 처리, DB CRUD |
-| 채팅 | 객체 참조로 메시지 전달 (DB 저장 안 함) |
+| 채팅 | 객체 참조로 실시간 전달 + DB(`chat_message`)에 저장 |
+| 결제 | 장바구니, 결제 수단(카드/현금/포인트), 결제 상세, 트랜잭션 |
 
 ## 2. 시스템 구조
 
@@ -46,13 +47,14 @@ Java Swing + MySQL로 만드는 PC방 관리 프로그램입니다.
 | --- | --- | --- |
 | 회원가입 | 아이디 중복 체크 후 DB 저장 | 필수 |
 | 로그인 | DB 조회, 같은 계정 중복 로그인 차단 | 필수 |
-| 좌석 선택 | 빈 좌석만 선택 가능 | 필수 |
+| 좌석 선택 | 빈 좌석만 표시. 콤보박스를 펼칠 때마다 DB에서 다시 읽음 | 필수 |
 | 남은 시간 표시 | 1초마다 감소, 화면 갱신 | 필수 |
-| 시간 추가 구매 | 요금표(1시간 1,000원 등)에서 선택 → 시간 추가 + 결제 내역 저장 | 필수 |
+| 시간 추가 구매 | 요금제 선택 → 결제 수단 입력 → 시간 추가 + 결제·결제 상세 저장 | 필수 |
 | 사용 종료 / 창 닫기 | 남은 시간 DB 저장, 좌석 비우기, 스레드 종료 | 필수 |
-| 관리자와 채팅 | 메시지 송수신 | 중요 |
-| 음식 주문 | 메뉴 목록에서 주문 → 관리자에게 표시 | 중요 |
-| 5분 남음 경고 | 팝업 알림 | 선택 |
+| 관리자와 채팅 | 메시지 송수신, DB 저장. 로그인하면 이전 대화를 불러옴 | 중요 |
+| 음식 주문 | 장바구니에 여러 메뉴 담기 → 결제 수단 입력 → 관리자에게 알림 | 중요 |
+| 포인트 | 카드·현금 결제액의 5% 적립, 결제할 때 사용 | 중요 |
+| 5분 남음 경고 | 5분 이하로 처음 내려가면 팝업 (관리자가 -10분 해도 뜸) | 선택 |
 | 시간 0 → 자동 종료 | 자동 로그아웃 | 필수 |
 
 ### 3-2. 관리자 창
@@ -61,14 +63,18 @@ Java Swing + MySQL로 만드는 PC방 관리 프로그램입니다.
 | --- | --- | --- |
 | 게스트 추가 버튼 | 새 `GuestFrame` 인스턴스 생성 | 필수 |
 | 좌석판 | 좌석 그리드, 빈자리/사용중 색 구분, 사용자·남은 시간 실시간 표시 | 필수 |
+| 좌석 추가 / 삭제 | 총 좌석 수를 관리자가 정함. 사용 중인 좌석은 삭제 불가 | 중요 |
 | 손님 시간 추가 / 차감 | 선택한 좌석의 남은 시간 변경 | 필수 |
 | 강제 종료 | 선택한 좌석 사용 종료 (시간 저장 후 로그아웃) | 필수 |
-| 회원 관리 | 회원 조회 / 검색 / 수정 / 삭제 (CRUD) | 필수 |
-| 메뉴 관리 | 메뉴 추가 / 수정 / 삭제 (CRUD) | 중요 |
-| 주문 확인 | 주문 목록, 상태 변경 (접수 → 완료) | 중요 |
-| 게스트와 채팅 | 좌석별 채팅 | 중요 |
-| 매출 확인 | 오늘 시간 판매 / 음식 매출 합계 | 선택 |
-| 자리 이동 | 사용 중인 손님 좌석 변경 | 선택 |
+| 회원 관리 | 검색 기준(이름 / 전화번호 뒤 4자리 / 아이디)으로 조회, 수정, 삭제 | 필수 |
+| 메뉴 관리 | 신규 메뉴 등록 / 정보 수정 / 재고 입고 / 삭제 | 중요 |
+| 요금제 관리 | 시간 요금제 등록 / 수정 / 삭제 | 중요 |
+| 주문 확인 | 주문 목록(품목, 결제 금액), 완료 처리, 취소(환불) | 중요 |
+| 게스트와 채팅 | 좌석을 고르면 그 손님과의 이전 대화를 불러옴 | 중요 |
+| 매출 확인 | 오늘 시간 / 음식 매출, 결제 수단별 합계 | 선택 |
+
+> 사용 중에 시간을 더 사면(연장) 좌석은 그대로 두고 남은 시간만 늘어난다. 타이머 스레드도 계속 돈다.
+> 로그인할 때 남은 시간이 0이면 바로 시간 구매 창이 뜨고, 사지 않으면 사용을 끝낸다.
 
 ## 4. 스레드 설계
 
@@ -76,12 +82,21 @@ Java Swing + MySQL로 만드는 PC방 관리 프로그램입니다.
 - 1초마다 `remainSeconds--` → 게스트 화면과 관리자 좌석판 갱신
 - Swing 화면 갱신은 반드시 `SwingUtilities.invokeLater(...)` 안에서 처리
 - 관리자의 시간 추가/차감과 타이머 감소가 동시에 일어나므로 시간 변경 메서드는 `synchronized`
+- `synchronized`를 쓰는 곳은 세 군데다.
+
+  | 대상 | 동시에 접근하는 쪽 | 방법 |
+  | --- | --- | --- |
+  | 남은 시간 (`GuestFrame`) | 타이머 스레드 ↔ 관리자 시간 ±10분, 시간 구매 | `synchronized` 메서드 |
+  | 좌석 상태 (`SeatDAO`) | 여러 게스트 창의 사용 시작, 좌석 추가/삭제 | `static` 자물쇠 `LOCK`에 `synchronized` 블록 |
+  | 결제 트랜잭션 (`PaymentService`) | 여러 게스트 창의 주문·시간 구매 ↔ 관리자의 주문 취소 | `static` 자물쇠 `LOCK`에 `synchronized` 블록 |
+
+  게스트 창마다 DAO와 서비스 객체를 따로 만들기 때문에, 인스턴스 메서드에 `synchronized`를 붙이면 창마다 다른 자물쇠를 잡아서 효과가 없다. 그래서 모두가 함께 쓰는 `static` 자물쇠를 둔다.
 - **DB 저장 시점**
   1. 게스트 창 닫기 (`windowClosed`)
   2. 사용 종료 / 강제 종료
   3. 1분마다 자동 저장 (비정상 종료 대비)
 - 종료할 때는 `interrupt()`로 스레드를 멈추고, `InterruptedException`에서 루프를 빠져나온다.
-- 남은 시간이 0이 되면 자동 종료, 300초(5분)가 되면 경고 팝업
+- 남은 시간이 0이 되면 자동 종료, 300초(5분) 이하로 처음 내려가면 경고 팝업
 
 ```java
 public class TimerThread extends Thread {
@@ -107,19 +122,23 @@ public class TimerThread extends Thread {
 ## 5. 채팅 설계
 
 - 한 JVM이라 소켓 없이 **객체 참조로 메서드를 직접 호출**한다.
-- 게스트 → 관리자: `admin.receiveMessage(seatNo, msg)`
+- 게스트 → 관리자: `admin.receiveMessage(seatNo, name, msg)`
 - 관리자 → 게스트: `guestFrame.receiveMessage(msg)` (`guests` 목록에서 좌석 번호로 찾음)
-- 관리자 창에는 좌석별 채팅 탭(또는 좌석 선택 후 채팅창)을 둔다.
-- 채팅 내용은 DB에 저장하지 않는다.
+- 보내는 쪽이 `ChatDAO.insert()`로 `chat_message`에 저장한 뒤 상대 창에 전달한다.
+- 게스트는 로그인할 때, 관리자는 사용 중인 좌석을 고를 때 그 손님과의 최근 대화 50개를 DB에서 불러온다.
 
 ## 6. DB 설계
 
 ```mermaid
 erDiagram
     member |o--o| seat : "사용 중"
+    member |o--o{ payment : "결제 / 처리"
+    payment ||--|{ payment_detail : "품목"
+    menu |o--o{ payment_detail : "음식"
+    time_product |o--o{ payment_detail : "시간"
+    payment |o--o| orders : "음식 결제"
     member |o--o{ orders : "주문"
-    menu |o--o{ orders : "주문된 메뉴"
-    member |o--o{ payment : "결제"
+    member |o--o{ chat_message : "대화"
 
     member {
         varchar id PK
@@ -128,12 +147,18 @@ erDiagram
         varchar phone
         int remain_seconds
         boolean is_admin
+        int point
         datetime created_at
     }
     seat {
         int seat_no PK
         varchar status
         varchar member_id FK
+    }
+    time_product {
+        int product_id PK
+        int minutes
+        int price
     }
     menu {
         int menu_id PK
@@ -142,96 +167,75 @@ erDiagram
         varchar category
         int stock
     }
-    orders {
-        int order_id PK
-        varchar member_id FK
-        int seat_no
-        int menu_id FK
-        int qty
-        varchar status
-        datetime ordered_at
-    }
     payment {
         int pay_id PK
         varchar member_id FK
+        varchar staff_id FK
         varchar type
         int amount
+        int card_amount
+        int cash_amount
+        int point_amount
         datetime paid_at
     }
-    time_product {
-        int product_id PK
-        int minutes
-        int price
+    payment_detail {
+        int detail_id PK
+        int pay_id FK
+        int menu_id FK
+        int product_id FK
+        varchar item_name
+        int qty
+        int unit_price
+        int subtotal
+    }
+    orders {
+        int order_id PK
+        int pay_id FK
+        varchar member_id FK
+        int seat_no
+        varchar status
+        datetime ordered_at
+    }
+    chat_message {
+        int msg_id PK
+        varchar member_id FK
+        int seat_no
+        varchar sender
+        varchar content
+        datetime sent_at
     }
 ```
 
-- 모든 외래키는 `ON DELETE SET NULL`이라 회원·메뉴를 지워도 주문·결제 기록은 남는다.
-- `orders.seat_no`는 외래키가 아닌 기록용 값, `time_product`는 독립된 요금표다.
+- 외래키는 `ON DELETE SET NULL`이라 회원·메뉴·요금제를 지워도 결제 기록(매출)은 남는다. `payment_detail.pay_id`만 `CASCADE`다.
+- `payment.staff_id`는 처리한 관리자다. 손님이 직접 결제하면 `NULL`, 관리자가 주문을 취소(환불)하면 그 관리자 아이디가 들어간다.
+- `orders.seat_no`, `chat_message.seat_no`는 외래키가 아닌 기록용 값이다. 좌석을 삭제해도 기록은 남는다.
+- 전체 SQL과 초기 데이터는 [`sql/schema.sql`](sql/schema.sql)에 있다.
 
-```sql
-CREATE TABLE member (
-    id             VARCHAR(20) PRIMARY KEY,
-    password       VARCHAR(64) NOT NULL,
-    name           VARCHAR(20) NOT NULL,
-    phone          VARCHAR(20),
-    remain_seconds INT NOT NULL DEFAULT 0,
-    is_admin       BOOLEAN NOT NULL DEFAULT FALSE,
-    created_at     DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+### orders와 payment를 왜 나누나
 
-CREATE TABLE seat (
-    seat_no   INT PRIMARY KEY,
-    status    VARCHAR(10) NOT NULL DEFAULT 'EMPTY',   -- EMPTY / USING
-    member_id VARCHAR(20) NULL,
-    FOREIGN KEY (member_id) REFERENCES member(id) ON DELETE SET NULL
-);
+| 테이블 | 무엇을 기록하나 | 언제 들어가나 |
+| --- | --- | --- |
+| `payment` | **돈의 흐름**: 누가, 얼마를, 어떤 수단으로 냈는지 | 시간 구매, 음식 결제, 주문 취소(음수 환불) |
+| `payment_detail` | **영수증 품목**: 무엇을 몇 개, 그때 단가 얼마에 샀는지 | `payment`와 같은 트랜잭션에서 품목마다 한 행 |
+| `orders` | **주방 처리 상태**: 대기 → 완료 / 취소 | 음식 결제와 같은 트랜잭션에서 한 행 (시간 구매는 주문이 없다) |
 
-CREATE TABLE time_product (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    minutes    INT NOT NULL,
-    price      INT NOT NULL
-);
-
-CREATE TABLE menu (
-    menu_id  INT AUTO_INCREMENT PRIMARY KEY,
-    name     VARCHAR(30) NOT NULL,
-    price    INT NOT NULL,
-    category VARCHAR(20),
-    stock    INT NOT NULL DEFAULT 0
-);
-
-CREATE TABLE orders (
-    order_id   INT AUTO_INCREMENT PRIMARY KEY,
-    member_id  VARCHAR(20),
-    seat_no    INT,
-    menu_id    INT,
-    qty        INT NOT NULL DEFAULT 1,
-    status     VARCHAR(10) NOT NULL DEFAULT 'WAIT',   -- WAIT / DONE
-    ordered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (member_id) REFERENCES member(id) ON DELETE SET NULL,
-    FOREIGN KEY (menu_id)   REFERENCES menu(menu_id) ON DELETE SET NULL
-);
-
-CREATE TABLE payment (
-    pay_id    INT AUTO_INCREMENT PRIMARY KEY,
-    member_id VARCHAR(20),
-    type      VARCHAR(10) NOT NULL,                   -- TIME / FOOD
-    amount    INT NOT NULL,
-    paid_at   DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (member_id) REFERENCES member(id) ON DELETE SET NULL
-);
-```
+- 시간 구매는 돈만 오가고 처리할 일이 없어서 `payment`만 생긴다. 음식은 결제 후에 조리·전달을 처리해야 해서 `orders`가 따로 있다.
+- `orders.pay_id`로 둘을 연결한다. 주문 목록의 품목과 금액은 `payment_detail`, `payment`에서 가져오므로, 메뉴 가격을 나중에 바꿔도 과거 주문 금액과 환불액은 바뀌지 않는다.
+- 음식 주문은 재고 차감 → `payment` → `payment_detail` → `orders` → 포인트 적립을 **한 트랜잭션**(`PaymentService`)으로 처리한다. 하나라도 실패하면(재고·포인트 부족) `rollback` 해서 아무것도 남지 않는다.
+- 주문 취소도 한 트랜잭션이다: `orders.status = CANCEL` → 원 결제를 음수로 복사한 환불 결제와 상세 → 재고 복구 → 쓴 포인트 반환, 적립 포인트 회수.
 
 ### CRUD 매핑
 
 | 테이블 | Create | Read | Update | Delete |
 | --- | --- | --- | --- | --- |
-| member | 회원가입 | 로그인, 회원 목록 | 정보 수정, 남은 시간 저장 | 회원 삭제 |
-| seat | 초기 데이터 | 좌석판 | 사용 시작 / 종료, 자리 이동 | - |
-| menu | 메뉴 추가 | 메뉴 목록 | 메뉴 수정, 재고 | 메뉴 삭제 |
-| orders | 음식 주문 | 주문 목록 | 상태 변경 | 주문 취소 |
-| payment | 시간 구매, 주문 결제 | 매출 확인 | - | - |
-| time_product | 초기 데이터 | 요금표 | - | - |
+| member | 회원가입 | 로그인, 회원 검색 | 정보 수정, 남은 시간 저장, 포인트 | 회원 삭제 |
+| seat | 좌석 추가 | 좌석판, 빈 좌석 목록 | 사용 시작 / 종료 | 좌석 삭제 (빈 좌석만) |
+| time_product | 요금제 등록 | 요금제 목록 | 요금제 수정 | 요금제 삭제 |
+| menu | 메뉴 등록 | 메뉴 목록 | 정보 수정, 재고 입고 / 차감 | 메뉴 삭제 |
+| payment | 시간 구매, 음식 결제, 환불 | 매출 확인 | - | - |
+| payment_detail | 결제와 함께 저장 | 주문 목록 품목, 환불 | - | (결제 삭제 시 CASCADE) |
+| orders | 음식 결제 | 주문 목록 | 완료 / 취소 | - |
+| chat_message | 메시지 보내기 | 이전 대화 불러오기 | - | - |
 
 관리자 계정은 `member.is_admin = TRUE`로 구분한다.
 
@@ -240,38 +244,49 @@ CREATE TABLE payment (
 ```
 pom.xml                          // Maven (mysql-connector-j)
 sql/
-└─ schema.sql                    // 테이블 생성 + 초기 데이터
+├─ schema.sql                    // 테이블 생성 + 초기 데이터 (새로 설치할 때)
+└─ migrate_v2.sql                // 예전 구조의 DB를 데이터 유지한 채 새 구조로
 src/main/resources/
 └─ db.properties.example         // 복사해서 db.properties로 사용 (git 제외)
 src/main/java/pccafe/
-├─ Main.java                     // AdminFrame 실행
+├─ Main.java                     // 관리자 로그인 창 실행
 ├─ db/
 │  └─ DBUtil.java                // Connection 관리
 ├─ dto/
 │  ├─ Member.java
 │  ├─ Seat.java
 │  ├─ Menu.java
+│  ├─ TimeProduct.java
+│  ├─ Payment.java               // 결제 (카드/현금/포인트 금액)
+│  ├─ PaymentDetail.java         // 결제 상세 (영수증 한 줄)
 │  ├─ Order.java
-│  ├─ Payment.java
-│  └─ TimeProduct.java
+│  └─ ChatMessage.java
 ├─ dao/
 │  ├─ MemberDAO.java
 │  ├─ SeatDAO.java
 │  ├─ MenuDAO.java
-│  ├─ OrderDAO.java
+│  ├─ TimeProductDAO.java
 │  ├─ PaymentDAO.java
-│  └─ TimeProductDAO.java
+│  ├─ PaymentDetailDAO.java
+│  ├─ OrderDAO.java
+│  └─ ChatDAO.java
+├─ service/
+│  ├─ PaymentService.java        // 음식 주문 / 시간 구매 / 주문 취소 트랜잭션
+│  └─ PaymentException.java      // 재고·포인트 부족 등
 ├─ ui/
 │  ├─ BaseFrame.java             // abstract, extends JFrame
 │  ├─ AdminLoginFrame.java       // extends BaseFrame, 시작 화면
 │  ├─ AdminFrame.java            // extends BaseFrame
 │  ├─ GuestFrame.java            // extends BaseFrame
 │  ├─ SignUpDialog.java
+│  ├─ PaymentDialog.java         // 결제 수단 입력 창
+│  ├─ Forms.java                 // 라벨 + 입력칸 폼 배치
 │  └─ panel/                     // 관리자 탭
 │     ├─ BasePanel.java          // abstract, extends JPanel
-│     ├─ MenuPanel.java
-│     ├─ OrderPanel.java
 │     ├─ MemberPanel.java
+│     ├─ MenuPanel.java
+│     ├─ TimeProductPanel.java   // 요금제 관리
+│     ├─ OrderPanel.java
 │     └─ SalesPanel.java
 ├─ thread/
 │  └─ TimerThread.java
@@ -323,6 +338,11 @@ src/main/java/pccafe/
 ## 8. 실행 방법
 
 1. MySQL 실행 후 스키마 생성: `mysql -u root -p < sql/schema.sql`
+   - 이미 예전 구조로 쓰던 DB가 있으면 `schema.sql` 대신 백업 후 `sql/migrate_v2.sql`을 한 번 실행한다. (`schema.sql`은 테이블을 지우고 새로 만든다)
+     ```bash
+     mysqldump -u root -p pccafe > ~/pccafe_backup.sql
+     mysql -u root -p pccafe < sql/migrate_v2.sql
+     ```
 2. `src/main/resources/db.properties.example`을 `db.properties`로 복사하고 계정 정보 입력
 3. IntelliJ에서 `pom.xml`을 Maven 프로젝트로 열기 → `pccafe.Main` 실행
 4. 관리자 로그인: `admin` / `admin` → 관리자 창에서 "게스트 추가"

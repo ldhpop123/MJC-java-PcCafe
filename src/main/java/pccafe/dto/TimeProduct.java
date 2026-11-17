@@ -15,10 +15,17 @@ public class TimeProduct {
     public int getMinutes() { return minutes; }
     public int getPrice() { return price; }
 
+    // "30분", "1시간", "1시간 30분"
+    public String getName() {
+        if (minutes < 60) {
+            return minutes + "분";
+        }
+        return minutes % 60 == 0 ? (minutes / 60) + "시간" : (minutes / 60) + "시간 " + (minutes % 60) + "분";
+    }
+
     // 콤보박스 / 선택창에 표시되는 문자열
     @Override
     public String toString() {
-        String time = minutes >= 60 ? (minutes / 60) + "시간" : minutes + "분";
-        return String.format("%s - %,d원", time, price);
+        return String.format("%s - %,d원", getName(), price);
     }
 }

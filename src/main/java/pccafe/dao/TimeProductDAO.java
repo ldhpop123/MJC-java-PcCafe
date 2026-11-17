@@ -24,4 +24,34 @@ public class TimeProductDAO {
         }
         return list;
     }
+
+    public void insert(TimeProduct p) throws SQLException {
+        String sql = "INSERT INTO time_product (minutes, price) VALUES (?, ?)";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, p.getMinutes());
+            ps.setInt(2, p.getPrice());
+            ps.executeUpdate();
+        }
+    }
+
+    public void update(TimeProduct p) throws SQLException {
+        String sql = "UPDATE time_product SET minutes = ?, price = ? WHERE product_id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, p.getMinutes());
+            ps.setInt(2, p.getPrice());
+            ps.setInt(3, p.getProductId());
+            ps.executeUpdate();
+        }
+    }
+
+    public void delete(int productId) throws SQLException {
+        String sql = "DELETE FROM time_product WHERE product_id = ?";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, productId);
+            ps.executeUpdate();
+        }
+    }
 }

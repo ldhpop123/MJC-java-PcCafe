@@ -6,6 +6,7 @@ import pccafe.ui.AdminFrame;
 import pccafe.util.TimeFormat;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -24,9 +25,11 @@ public class MemberPanel extends BasePanel {
     private final AdminFrame admin;
     private final MemberDAO memberDAO = new MemberDAO();
     private final DefaultTableModel model =
-            readOnlyModel("아이디", "이름", "전화번호", "남은 시간", "구분", "상태");
+            readOnlyModel("아이디", "이름", "전화번호", "남은 시간", "포인트", "구분", "상태");
     private final JTable table = new JTable(model);
 
+    private final JComboBox<String> searchBy =
+            new JComboBox<>(new String[]{MemberDAO.BY_NAME, MemberDAO.BY_PHONE_LAST4, MemberDAO.BY_ID});
     private final JTextField searchField = new JTextField(12);
     private final JTextField nameField = new JTextField(8);
     private final JTextField phoneField = new JTextField(10);
@@ -48,7 +51,8 @@ public class MemberPanel extends BasePanel {
         search.addActionListener(e -> refresh());
         searchField.addActionListener(e -> refresh());
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        top.add(new JLabel("아이디 / 이름"));
+        top.add(new JLabel("검색 기준"));
+        top.add(searchBy);
         top.add(searchField);
         top.add(search);
 
@@ -83,7 +87,7 @@ public class MemberPanel extends BasePanel {
     @Override
     public void refresh() {
         try {
-            members = memberDAO.search(searchField.getText().trim());
+            members = memberDAO.search((String) searchBy.getSelectedItem(), searchField.getText().trim());
         } catch (SQLException e) {
             showError(e);
             return;
@@ -95,6 +99,7 @@ public class MemberPanel extends BasePanel {
                     m.getName(),
                     m.getPhone(),
                     TimeFormat.format(m.getRemainSeconds()),
+                    String.format("%,dP", m.getPoint()),
                     m.isAdmin() ? "관리자" : "회원",
                     admin.isLoggedIn(m.getId()) ? "사용 중" : ""
             });

@@ -1,10 +1,9 @@
 package pccafe.ui.panel;
 
-import pccafe.dao.MenuDAO;
 import pccafe.dao.OrderDAO;
-import pccafe.dao.PaymentDAO;
 import pccafe.dto.Order;
-import pccafe.dto.Payment;
+import pccafe.service.PaymentException;
+import pccafe.service.PaymentService;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,16 +21,17 @@ import java.util.List;
 public class OrderPanel extends BasePanel {
     private static final DateTimeFormatter TIME = DateTimeFormatter.ofPattern("MM-dd HH:mm");
 
+    private final String staffId;   // 로그인한 관리자. 환불 결제의 staff_id로 저장
     private final OrderDAO orderDAO = new OrderDAO();
-    private final MenuDAO menuDAO = new MenuDAO();
-    private final PaymentDAO paymentDAO = new PaymentDAO();
+    private final PaymentService paymentService = new PaymentService();
     private final DefaultTableModel model =
-            readOnlyModel("주문번호", "시간", "좌석", "회원", "메뉴", "수량", "금액", "상태");
+            readOnlyModel("주문번호", "시간", "좌석", "회원", "품목", "결제 금액", "상태");
     private final JTable table = new JTable(model);
 
     private List<Order> orders = new ArrayList<>();
 
-    public OrderPanel() {
+    public OrderPanel(String staffId) {
+        this.staffId = staffId;
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JButton done = new JButton("완료 처리");
@@ -65,12 +65,18 @@ public class OrderPanel extends BasePanel {
                     o.getOrderedAt().format(TIME),
                     o.getSeatNo() + "번",
                     o.getMemberId(),
-                    o.getMenuName() == null ? "(삭제된 메뉴)" : o.getMenuName(),
-                    o.getQty(),
-                    String.format("%,d", o.getTotal()),
-                    Order.WAIT.equals(o.getStatus()) ? "대기" : "완료"
+                    o.getItems() == null ? "(결제 정보 없음)" : o.getItems(),
+                    String.format("%,d", o.getAmount()),
+                    statusText(o.getStatus())
             });
         }
+    }
+
+    private static String statusText(String status) {
+        if (Order.WAIT.equals(status)) {
+            return "대기";
+        }
+        return Order.DONE.equals(status) ? "완료" : "취소";
     }
 
     private Order selected() {
@@ -84,43 +90,37 @@ public class OrderPanel extends BasePanel {
             showInfo("주문을 선택하세요.");
             return;
         }
-        if (Order.DONE.equals(o.getStatus())) {
-            showInfo("이미 완료된 주문입니다.");
-            return;
-        }
         try {
-            orderDAO.updateStatus(o.getOrderId(), Order.DONE);
+            if (!orderDAO.updateStatusIfWaiting(o.getOrderId(), Order.DONE)) {
+                showInfo("대기 중인 주문만 완료 처리할 수 있습니다.");
+            }
             refresh();
         } catch (SQLException e) {
             showError(e);
         }
     }
 
-    // 대기 중인 주문만 취소: 주문 삭제 + 재고 되돌리기 + 환불(음수 결제) 기록
+    // 대기 중인 주문만 취소: 주문 상태 CANCEL + 환불 결제 + 재고 복구 + 포인트 되돌리기 (트랜잭션)
     private void cancelOrder() {
         Order o = selected();
         if (o == null) {
             showInfo("주문을 선택하세요.");
             return;
         }
-        if (Order.DONE.equals(o.getStatus())) {
-            showInfo("완료된 주문은 취소할 수 없습니다.");
+        if (!Order.WAIT.equals(o.getStatus())) {
+            showInfo("대기 중인 주문만 취소할 수 있습니다.");
             return;
         }
-        if (!confirm(o.getOrderId() + "번 주문을 취소할까요?")) {
+        if (!confirm(String.format("%d번 주문을 취소하고 %,d원을 환불할까요?", o.getOrderId(), o.getAmount()))) {
             return;
         }
         try {
-            orderDAO.delete(o.getOrderId());
-            if (o.getMenuId() > 0) {
-                menuDAO.increaseStock(o.getMenuId(), o.getQty());
-            }
-            if (o.getTotal() > 0) {
-                paymentDAO.insert(new Payment(o.getMemberId(), Payment.FOOD, -o.getTotal()));
-            }
-            refresh();
+            paymentService.cancelOrder(o.getOrderId(), staffId);
+        } catch (PaymentException e) {
+            showInfo(e.getMessage());
         } catch (SQLException e) {
             showError(e);
         }
+        refresh();
     }
 }

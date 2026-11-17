@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuDAO {
-    // 게스트 창과 관리자 탭이 MenuDAO를 각자 만들기 때문에, 모든 인스턴스가 같은 자물쇠를 쓰도록 static으로 둔다.
-    // 재고를 바꾸는 메서드는 이 자물쇠를 잡은 스레드 하나만 실행할 수 있다.
-    private static final Object LOCK = new Object();
-
     public void insert(Menu m) throws SQLException {
         String sql = "INSERT INTO menu (name, price, category, stock) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBUtil.getConnection();
@@ -54,29 +50,32 @@ public class MenuDAO {
         }
     }
 
-    // 재고가 충분할 때만 차감. 부족하면 false
-    public boolean decreaseStock(int menuId, int qty) throws SQLException {
-        synchronized (LOCK) {
-            String sql = "UPDATE menu SET stock = stock - ? WHERE menu_id = ? AND stock >= ?";
-            try (Connection conn = DBUtil.getConnection();
-                 PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setInt(1, qty);
-                ps.setInt(2, menuId);
-                ps.setInt(3, qty);
-                return ps.executeUpdate() == 1;
-            }
+    // 재고가 충분할 때만 차감. 부족하면 false.
+    // 주문 트랜잭션의 Connection으로 실행한다. 동시에 들어오는 주문은 PaymentService가 synchronized로 한 줄로 세운다
+    public boolean decreaseStock(Connection conn, int menuId, int qty) throws SQLException {
+        String sql = "UPDATE menu SET stock = stock - ? WHERE menu_id = ? AND stock >= ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, qty);
+            ps.setInt(2, menuId);
+            ps.setInt(3, qty);
+            return ps.executeUpdate() == 1;
         }
     }
 
+    // 주문 취소 트랜잭션에서 재고를 되돌릴 때
+    public void increaseStock(Connection conn, int menuId, int qty) throws SQLException {
+        String sql = "UPDATE menu SET stock = stock + ? WHERE menu_id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, qty);
+            ps.setInt(2, menuId);
+            ps.executeUpdate();
+        }
+    }
+
+    // 메뉴 관리 탭의 재고 입고
     public void increaseStock(int menuId, int qty) throws SQLException {
-        synchronized (LOCK) {
-            String sql = "UPDATE menu SET stock = stock + ? WHERE menu_id = ?";
-            try (Connection conn = DBUtil.getConnection();
-                 PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setInt(1, qty);
-                ps.setInt(2, menuId);
-                ps.executeUpdate();
-            }
+        try (Connection conn = DBUtil.getConnection()) {
+            increaseStock(conn, menuId, qty);
         }
     }
 
