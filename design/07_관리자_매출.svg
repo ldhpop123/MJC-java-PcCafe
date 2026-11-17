@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1064" height="816" viewBox="0 0 1064 816">
-<title>06 관리자 · 매출 탭</title>
-<rect width="1064" height="816" fill="#FFFFFF"/>
-<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">06 관리자 · 매출 탭</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1064" height="838" viewBox="0 0 1064 838">
+<title>07 관리자 · 매출 탭</title>
+<rect width="1064" height="838" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">07 관리자 · 매출 탭</text>
 <text x="1032" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">1000 × 650</text>
 <g id="창">
 <rect x="32" y="72" width="1000" height="650" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
@@ -23,11 +23,13 @@
 <text x="142.5" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">회원 관리</text>
 <rect x="191" y="140" width="93" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
 <text x="237.5" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">메뉴 관리</text>
-<rect x="286" y="140" width="54" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
-<text x="313.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">주문</text>
-<rect x="342" y="140" width="54" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
-<rect x="343" y="164" width="52" height="6" rx="0" fill="#FFFFFF"/>
-<text x="369.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">매출</text>
+<rect x="286" y="140" width="106" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="339.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">요금제 관리</text>
+<rect x="394" y="140" width="54" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="421.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">주문</text>
+<rect x="450" y="140" width="54" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<rect x="451" y="164" width="52" height="6" rx="0" fill="#FFFFFF"/>
+<text x="477.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">매출</text>
 </g>
 <rect x="40" y="167" width="984" height="547" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
 <text x="56" y="198" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="start" fill="#1D1D1F">오늘 매출</text>
@@ -36,17 +38,27 @@
 <text x="170.0" y="197.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">새로고침</text>
 </g>
 <text x="56" y="240" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">시간 판매</text>
-<text x="192" y="240" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">500원</text>
+<text x="192" y="240" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">1,000원</text>
 <text x="56" y="280" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">음식 판매</text>
 <text x="192" y="280" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">7,500원</text>
 <text x="56" y="320" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">합계</text>
-<text x="192" y="320" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" text-anchor="start" fill="#1D1D1F">8,000원</text>
+<text x="192" y="320" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" text-anchor="start" fill="#1D1D1F">8,500원</text>
+<text x="56" y="390" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">카드</text>
+<text x="192" y="390" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">5,000원</text>
+<text x="56" y="430" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">현금</text>
+<text x="192" y="430" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">3,500원</text>
+<text x="56" y="470" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">포인트 사용</text>
+<text x="192" y="470" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">0원</text>
 <g id="표시 1"><circle cx="48" cy="220" r="10" fill="#FF3B30"/><text x="48" y="224" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text></g>
+<g id="표시 2"><circle cx="48" cy="370" r="10" fill="#FF3B30"/><text x="48" y="374" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
 </g>
 <g id="범례">
 <text x="32" y="754" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
 <circle cx="41" cy="774" r="9" fill="#FF3B30"/>
 <text x="41" y="778" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
 <text x="58" y="778" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">오늘 날짜의 payment 합계 (PaymentDAO.sumToday). 환불은 음수라 자동으로 빠짐</text>
+<circle cx="41" cy="796" r="9" fill="#FF3B30"/>
+<text x="41" y="800" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="58" y="800" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">결제 수단별 합계 (card_amount / cash_amount / point_amount)</text>
 </g>
 </svg>

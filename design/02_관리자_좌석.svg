@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1064" height="904" viewBox="0 0 1064 904">
+<svg xmlns="http://www.w3.org/2000/svg" width="1064" height="926" viewBox="0 0 1064 926">
 <title>02 관리자 · 좌석 탭</title>
-<rect width="1064" height="904" fill="#FFFFFF"/>
+<rect width="1064" height="926" fill="#FFFFFF"/>
 <text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">02 관리자 · 좌석 탭</text>
 <text x="1032" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">1000 × 650</text>
 <g id="창">
@@ -24,10 +24,12 @@
 <text x="142.5" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">회원 관리</text>
 <rect x="191" y="140" width="93" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
 <text x="237.5" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">메뉴 관리</text>
-<rect x="286" y="140" width="54" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
-<text x="313.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">주문</text>
-<rect x="342" y="140" width="54" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
-<text x="369.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">매출</text>
+<rect x="286" y="140" width="106" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="339.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">요금제 관리</text>
+<rect x="394" y="140" width="54" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="421.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">주문</text>
+<rect x="450" y="140" width="54" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="477.0" y="158" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">매출</text>
 </g>
 <rect x="40" y="167" width="984" height="547" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
 <g id="좌석판 GridLayout(0, 4)">
@@ -109,16 +111,25 @@
 <rect x="752" y="264" width="264" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
 <text x="884.0" y="281.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">강제 종료</text>
 </g>
+<g id="JButton 좌석 추가">
+<rect x="752" y="298" width="129.0" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="816.5" y="315.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">좌석 추가</text>
+</g>
+<g id="JButton 좌석 삭제">
+<rect x="887.0" y="298" width="129.0" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="951.5" y="315.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">좌석 삭제</text>
+</g>
 <g id="채팅">
-<rect x="752" y="308" width="264" height="398" rx="4" fill="none" stroke="#C7C7CC" stroke-width="1"/>
-<rect x="762" y="300" width="204" height="16" rx="0" fill="#F5F5F7"/>
-<text x="768" y="312" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" font-weight="500" text-anchor="start" fill="#6E6E73">채팅 (선택된 좌석에게 전송)</text>
+<rect x="752" y="344" width="264" height="362" rx="4" fill="none" stroke="#C7C7CC" stroke-width="1"/>
+<rect x="762" y="336" width="204" height="16" rx="0" fill="#F5F5F7"/>
+<text x="768" y="348" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" font-weight="500" text-anchor="start" fill="#6E6E73">채팅 (선택된 좌석에게 전송)</text>
 </g>
 <g id="JTextArea (JScrollPane)">
-<rect x="762" y="320" width="244" height="332" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
-<text x="770" y="340" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">[3번 테스트] 라면 언제 나와요?</text>
-<text x="770" y="360" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">[관리자 → 3번] 곧 갖다드릴게요</text>
-<text x="770" y="380" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">[주문] 3번 테스트: 라면 2개</text>
+<rect x="762" y="356" width="244" height="296" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="770" y="376" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">── 3번 좌석 test 님과의 대화 ──</text>
+<text x="770" y="396" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">[test] 라면 언제 나와요?</text>
+<text x="770" y="416" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">[관리자] 곧 갖다드릴게요</text>
+<text x="770" y="436" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">[주문] 3번 테스트: 라면 2개, 콜라 1개</text>
 </g>
 <g id="JTextField">
 <rect x="762" y="660" width="244" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
@@ -129,7 +140,8 @@
 <g id="표시 2"><circle cx="40" cy="140" r="10" fill="#FF3B30"/><text x="40" y="144" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
 <g id="표시 3"><circle cx="48" cy="175" r="10" fill="#FF3B30"/><text x="48" y="179" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text></g>
 <g id="표시 4"><circle cx="752" cy="204" r="10" fill="#FF3B30"/><text x="752" y="208" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text></g>
-<g id="표시 5"><circle cx="752" cy="300" r="10" fill="#FF3B30"/><text x="752" y="304" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text></g>
+<g id="표시 5"><circle cx="752" cy="298" r="10" fill="#FF3B30"/><text x="752" y="302" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text></g>
+<g id="표시 6"><circle cx="752" cy="336" r="10" fill="#FF3B30"/><text x="752" y="340" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text></g>
 </g>
 <g id="범례">
 <text x="32" y="754" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
@@ -147,6 +159,9 @@
 <text x="58" y="844" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">시간 ±10분 / 강제 종료: 선택한 좌석의 GuestFrame에 addSeconds() / forceLogout()</text>
 <circle cx="41" cy="862" r="9" fill="#FF3B30"/>
 <text x="41" y="866" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text>
-<text x="58" y="866" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">채팅: 선택한 좌석에게 전송. 게스트 메시지와 주문 알림도 여기 표시</text>
+<text x="58" y="866" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">좌석 추가 / 삭제: 마지막 번호 다음으로 추가, 빈 좌석만 삭제 (SeatDAO, synchronized)</text>
+<circle cx="41" cy="884" r="9" fill="#FF3B30"/>
+<text x="41" y="888" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text>
+<text x="58" y="888" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">채팅: 좌석을 고르면 그 손님과의 이전 대화(최근 50개)를 불러옴. 보낼 때 chat_message에 저장</text>
 </g>
 </svg>

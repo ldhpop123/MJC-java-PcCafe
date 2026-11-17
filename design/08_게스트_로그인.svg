@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="484" height="752" viewBox="0 0 484 752">
-<title>07 게스트 · 로그인 카드</title>
-<rect width="484" height="752" fill="#FFFFFF"/>
-<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">07 게스트 · 로그인 카드</text>
-<text x="452" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">420 × 520</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="727" height="752" viewBox="0 0 727 752">
+<title>08 게스트 · 로그인 카드</title>
+<rect width="727" height="752" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">08 게스트 · 로그인 카드</text>
+<text x="695" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">420 × 520</text>
 <g id="창">
 <rect x="32" y="72" width="420" height="520" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
 <path d="M32 100V82a10 10 0 0 1 10 -10H442a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
@@ -50,10 +50,10 @@
 <text x="58" y="648" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">아이디 / 비밀번호 (비밀번호 칸에서 Enter = 로그인)</text>
 <circle cx="41" cy="666" r="9" fill="#FF3B30"/>
 <text x="41" y="670" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-<text x="58" y="670" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">좌석: 빈 좌석만 표시 (SeatDAO.findEmptySeatNos)</text>
+<text x="58" y="670" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">좌석: 빈 좌석만 표시. 펼칠 때마다 DB에서 다시 읽음 (PopupMenuListener)</text>
 <circle cx="41" cy="688" r="9" fill="#FF3B30"/>
 <text x="41" y="692" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
-<text x="58" y="692" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">로그인: 중복 접속 · 관리자 계정 · 이미 찬 좌석 검사 후 사용 중 카드로 전환</text>
+<text x="58" y="692" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">로그인: 중복 접속 · 관리자 계정 · 이미 찬 좌석 검사 → 사용 중 카드. 남은 시간 0이면 시간 구매 창</text>
 <circle cx="41" cy="710" r="9" fill="#FF3B30"/>
 <text x="41" y="714" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
 <text x="58" y="714" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">회원가입: SignUpDialog (모달)</text>

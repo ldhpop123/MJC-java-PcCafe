@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="484" height="730" viewBox="0 0 484 730">
-<title>08 게스트 · 사용 중 카드</title>
-<rect width="484" height="730" fill="#FFFFFF"/>
-<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">08 게스트 · 사용 중 카드</text>
-<text x="452" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">420 × 520</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="690" height="730" viewBox="0 0 690 730">
+<title>09 게스트 · 사용 중 카드</title>
+<rect width="690" height="730" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">09 게스트 · 사용 중 카드</text>
+<text x="658" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">420 × 520</text>
 <g id="창">
 <rect x="32" y="72" width="420" height="520" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
 <path d="M32 100V82a10 10 0 0 1 10 -10H442a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
@@ -24,7 +24,7 @@
 <rect x="54" y="248" width="376" height="238" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
 <text x="62" y="268" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">나: 라면 언제 나와요?</text>
 <text x="62" y="288" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">관리자: 곧 갖다드릴게요</text>
-<text x="62" y="308" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">[주문] 라면 2개 (6,000원)</text>
+<text x="62" y="308" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">[주문 3번] 라면 2개, 콜라 1개 (7,500원)</text>
 </g>
 <g id="JTextField">
 <rect x="54" y="500" width="376" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
@@ -50,12 +50,12 @@
 <text x="32" y="624" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
 <circle cx="41" cy="644" r="9" fill="#FF3B30"/>
 <text x="41" y="648" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-<text x="58" y="648" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">남은 시간: TimerThread가 1초마다 감소, 5분 남으면 경고, 0이면 자동 종료</text>
+<text x="58" y="648" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">남은 시간: TimerThread가 1초마다 감소, 5분 이하로 처음 내려가면 경고, 0이면 자동 종료</text>
 <circle cx="41" cy="666" r="9" fill="#FF3B30"/>
 <text x="41" y="670" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-<text x="58" y="670" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">관리자 채팅: Enter로 전송 (admin.receiveMessage)</text>
+<text x="58" y="670" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">관리자 채팅: Enter로 전송 + chat_message 저장. 로그인하면 이전 대화를 불러옴</text>
 <circle cx="41" cy="688" r="9" fill="#FF3B30"/>
 <text x="41" y="692" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
-<text x="58" y="692" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">시간 구매 / 음식 주문 → 팝업, 사용 종료 → 시간 저장 후 로그인 카드로</text>
+<text x="58" y="692" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">시간 구매(11) / 음식 주문(12) → 결제 수단 창(13), 사용 종료 → 시간 저장 후 로그인 카드로</text>
 </g>
 </svg>

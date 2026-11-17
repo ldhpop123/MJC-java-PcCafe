@@ -299,40 +299,46 @@ src/main/java/pccafe/
 
 ### 화면 설계도
 
-- **Figma:** [PC방 관리 프로그램 - 화면 설계](https://www.figma.com/design/opq8v7G3k3Y0DYlBf94zP8) (흐름도 + 화면 11개, 편집 가능한 레이어)
-- **SVG 원본:** `design/` 폴더에 화면 흐름도와 화면별 설계도(SVG 12개)가 있다. Figma에 끌어다 놓으면 편집 가능한 레이어로 들어간다. 화면이 바뀌면 `python3 design/gen_design.py design`으로 다시 만든다.
+- **Figma:** [PC방 관리 프로그램 - 화면 설계](https://www.figma.com/design/opq8v7G3k3Y0DYlBf94zP8) (흐름도 + 화면 13개, 편집 가능한 레이어)
+- **이미지:** 아래 그림은 Figma 화면을 캡처한 것이다 (`design/figma/`).
+- **SVG 원본:** `design/` 폴더의 SVG를 Figma에 끌어다 놓으면 편집 가능한 레이어로 들어간다. 화면이 바뀌면 `python3 design/gen_design.py design`으로 다시 만든다.
 
 #### 화면 흐름도
 
-![화면 흐름도](design/00_화면_흐름도.svg)
+![화면 흐름도](design/figma/00_화면_흐름도.png)
 
 #### 관리자 화면
 
-![관리자 로그인](design/01_관리자_로그인.svg)
+![관리자 로그인](design/figma/01_관리자_로그인.png)
 
-![관리자 - 좌석](design/02_관리자_좌석.svg)
+![관리자 - 좌석](design/figma/02_관리자_좌석.png)
 
-![관리자 - 회원 관리](design/03_관리자_회원관리.svg)
+![관리자 - 회원 관리](design/figma/03_관리자_회원관리.png)
 
-![관리자 - 메뉴 관리](design/04_관리자_메뉴관리.svg)
+![관리자 - 메뉴 관리](design/figma/04_관리자_메뉴관리.png)
 
-![관리자 - 주문](design/05_관리자_주문.svg)
+![관리자 - 요금제 관리](design/figma/05_관리자_요금제관리.png)
 
-![관리자 - 매출](design/06_관리자_매출.svg)
+![관리자 - 주문](design/figma/06_관리자_주문.png)
+
+![관리자 - 매출](design/figma/07_관리자_매출.png)
 
 #### 게스트 화면
 
 <p>
-  <img src="design/07_게스트_로그인.svg" alt="게스트 - 로그인" width="49%">
-  <img src="design/08_게스트_사용중.svg" alt="게스트 - 사용 중" width="49%">
+  <img src="design/figma/08_게스트_로그인.png" alt="게스트 - 로그인" width="49%">
+  <img src="design/figma/09_게스트_사용중.png" alt="게스트 - 사용 중" width="49%">
 </p>
 
 #### 팝업
 
 <p>
-  <img src="design/09_회원가입.svg" alt="회원가입" width="32%">
-  <img src="design/10_팝업_시간구매.svg" alt="시간 구매 팝업" width="32%">
-  <img src="design/11_팝업_음식주문.svg" alt="음식 주문 팝업" width="32%">
+  <img src="design/figma/10_회원가입.png" alt="회원가입" width="49%">
+  <img src="design/figma/11_팝업_시간구매.png" alt="시간 구매 팝업" width="49%">
+</p>
+<p>
+  <img src="design/figma/12_팝업_음식주문.png" alt="음식 주문 장바구니" width="49%">
+  <img src="design/figma/13_결제수단.png" alt="결제 수단 창" width="49%">
 </p>
 
 ## 8. 실행 방법

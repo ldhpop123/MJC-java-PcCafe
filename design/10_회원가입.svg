@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="364" height="424" viewBox="0 0 364 424">
-<title>09 회원가입 · SignUpDialog (모달)</title>
-<rect width="364" height="424" fill="#FFFFFF"/>
-<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">09 회원가입 · SignUpDialog (모달)</text>
-<text x="332" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">300 × 236</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="487" height="424" viewBox="0 0 487 424">
+<title>10 회원가입 · SignUpDialog (모달)</title>
+<rect width="487" height="424" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">10 회원가입 · SignUpDialog (모달)</text>
+<text x="455" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">300 × 236</text>
 <g id="창">
 <rect x="32" y="72" width="300" height="236" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
 <path d="M32 100V82a10 10 0 0 1 10 -10H322a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>

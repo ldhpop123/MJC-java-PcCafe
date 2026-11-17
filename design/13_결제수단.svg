@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="707" height="480" viewBox="0 0 707 480">
+<title>13 결제 수단 · PaymentDialog (모달)</title>
+<rect width="707" height="480" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">13 결제 수단 · PaymentDialog (모달)</text>
+<text x="675" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">320 × 270</text>
+<g id="창">
+<rect x="32" y="72" width="320" height="270" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
+<path d="M32 100V82a10 10 0 0 1 10 -10H342a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
+<circle cx="48" cy="86" r="6" fill="#FF5F57"/>
+<circle cx="68" cy="86" r="6" fill="#FEBC2E"/>
+<circle cx="88" cy="86" r="6" fill="#28C840"/>
+<text x="192.0" y="91" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">음식 결제</text>
+</g>
+<g id="내용">
+<text x="60" y="126" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">결제 금액: 7,500원</text>
+<text x="60" y="148" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" font-weight="400" text-anchor="start" fill="#1D1D1F">보유 포인트: 375P  (카드·현금 결제액의 5% 적립)</text>
+<text x="60" y="170" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" font-weight="400" text-anchor="start" fill="#6E6E73">금액이 맞습니다.</text>
+<text x="60" y="208" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">카드</text>
+<g id="JTextField">
+<rect x="120" y="190" width="216" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="128" y="208.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">5000</text>
+</g>
+<text x="60" y="244" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">현금</text>
+<g id="JTextField">
+<rect x="120" y="226" width="216" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="128" y="244.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">2500</text>
+</g>
+<text x="60" y="280" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">포인트</text>
+<g id="JTextField">
+<rect x="120" y="262" width="216" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="128" y="280.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">0</text>
+</g>
+<g id="JButton 결제">
+<rect x="178" y="306" width="76" height="26" rx="6" fill="#0A84FF"/>
+<text x="216.0" y="323.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#FFFFFF">결제</text>
+</g>
+<g id="JButton 취소">
+<rect x="260" y="306" width="76" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="298.0" y="323.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">취소</text>
+</g>
+<g id="표시 1"><circle cx="44" cy="122" r="10" fill="#FF3B30"/><text x="44" y="126" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text></g>
+<g id="표시 2"><circle cx="44" cy="204" r="10" fill="#FF3B30"/><text x="44" y="208" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
+<g id="표시 3"><circle cx="168" cy="306" r="10" fill="#FF3B30"/><text x="168" y="310" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text></g>
+</g>
+<g id="범례">
+<text x="32" y="374" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
+<circle cx="41" cy="394" r="9" fill="#FF3B30"/>
+<text x="41" y="398" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
+<text x="58" y="398" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">결제 금액과 보유 포인트. 남은 금액을 입력할 때마다 다시 계산</text>
+<circle cx="41" cy="416" r="9" fill="#FF3B30"/>
+<text x="41" y="420" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="58" y="420" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">카드 + 현금 + 포인트 = 결제 금액이어야 하고, 포인트는 보유한 만큼만</text>
+<circle cx="41" cy="438" r="9" fill="#FF3B30"/>
+<text x="41" y="442" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+<text x="58" y="442" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">결제: PaymentService 트랜잭션 (재고 · 결제 · 결제 상세 · 주문 · 포인트). 실패하면 rollback</text>
+</g>
+</svg>

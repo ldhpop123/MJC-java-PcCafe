@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="384" height="388" viewBox="0 0 384 388">
+<svg xmlns="http://www.w3.org/2000/svg" width="555" height="388" viewBox="0 0 555 388">
 <title>01 관리자 로그인 · AdminLoginFrame</title>
-<rect width="384" height="388" fill="#FFFFFF"/>
+<rect width="555" height="388" fill="#FFFFFF"/>
 <text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">01 관리자 로그인 · AdminLoginFrame</text>
-<text x="352" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">320 × 200</text>
+<text x="523" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">320 × 200</text>
 <g id="창">
 <rect x="32" y="72" width="320" height="200" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
 <path d="M32 100V82a10 10 0 0 1 10 -10H342a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
@@ -33,7 +33,7 @@
 <text x="32" y="304" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
 <circle cx="41" cy="324" r="9" fill="#FF3B30"/>
 <text x="41" y="328" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-<text x="58" y="328" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">GridLayout(0, 2) 폼: 아이디 / 비밀번호 (비밀번호 칸에서 Enter = 로그인)</text>
+<text x="58" y="328" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">Forms.labeled 폼: 아이디 / 비밀번호 (비밀번호 칸에서 Enter = 로그인)</text>
 <circle cx="41" cy="346" r="9" fill="#FF3B30"/>
 <text x="41" y="350" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
 <text x="58" y="350" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">로그인: is_admin 계정만 통과 → dispose() 후 AdminFrame 열기</text>

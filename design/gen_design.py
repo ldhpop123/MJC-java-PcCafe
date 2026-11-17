@@ -15,6 +15,11 @@ PAD = 32
 TITLE_H = 28
 
 
+def text_width(s, size):
+    """글자 폭 어림값: 한글·기호는 글자 크기만큼, 영문·숫자는 0.6배"""
+    return sum(size if ord(ch) > 0x2000 else size * 0.6 for ch in s)
+
+
 class Screen:
     def __init__(self, slug, title, w, h):
         self.slug, self.title, self.w, self.h = slug, title, w, h
@@ -153,13 +158,17 @@ class Screen:
     def render(self):
         win_w, win_h = self.w, self.h
         legend_h = 40 + 22 * len(self.legend) if self.legend else 0
-        cw = win_w + PAD * 2
+        # 작은 팝업은 제목이나 범례가 창보다 길어서, 가장 긴 줄에 맞춰 캔버스를 넓힌다
+        size_note = f"{win_w} × {win_h}"
+        widest = max([win_w, text_width(self.title, 18) + text_width(size_note, 12) + 24]
+                     + [26 + text_width(desc, 12.5) for _, desc in self.legend])
+        cw = int(widest) + PAD * 2
         ch = PAD + 40 + win_h + legend_h + PAD
         out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{cw}" height="{ch}" viewBox="0 0 {cw} {ch}">',
                f'<title>{escape(self.title)}</title>',
                f'<rect width="{cw}" height="{ch}" fill="{C["canvas"]}"/>',
                f'<text x="{PAD}" y="{PAD + 18}" font-family="{FONT}" font-size="18" font-weight="700" fill="{C["text"]}">{escape(self.title)}</text>',
-               f'<text x="{PAD + cw - PAD * 2}" y="{PAD + 18}" font-family="{FONT}" font-size="12" text-anchor="end" fill="{C["note"]}">{win_w} × {win_h}</text>']
+               f'<text x="{cw - PAD}" y="{PAD + 18}" font-family="{FONT}" font-size="12" text-anchor="end" fill="{C["note"]}">{size_note}</text>']
         wx, wy = PAD, PAD + 40
         out.append('<g id="창">')
         out.append(f'<rect x="{wx}" y="{wy}" width="{win_w}" height="{win_h}" rx="10" fill="{C["win"]}" stroke="{C["border"]}"/>')
@@ -202,7 +211,7 @@ s.field(130, 22, 170, "admin")
 s.label(20, 76, "비밀번호")
 s.field(130, 58, 170, "admin", password=True)
 s.button(20, 120, 280, "로그인", h=30, primary=True)
-s.marker(10, 22, 1, "GridLayout(0, 2) 폼: 아이디 / 비밀번호 (비밀번호 칸에서 Enter = 로그인)")
+s.marker(10, 22, 1, "Forms.labeled 폼: 아이디 / 비밀번호 (비밀번호 칸에서 Enter = 로그인)")
 s.marker(10, 120, 2, "로그인: is_admin 계정만 통과 → dispose() 후 AdminFrame 열기")
 s.render()
 
@@ -210,7 +219,7 @@ s.render()
 # 관리자 창 공통 (AdminFrame 1000 × 650)
 ADMIN_W, ADMIN_H = 1000, 650
 CH = ADMIN_H - TITLE_H          # 콘텐츠 높이 622
-TAB_NAMES = ["좌석", "회원 관리", "메뉴 관리", "주문", "매출"]
+TAB_NAMES = ["좌석", "회원 관리", "메뉴 관리", "요금제 관리", "주문", "매출"]
 
 
 def admin_screen(slug, title, active):
@@ -253,11 +262,14 @@ s.label(side_x, 92, "선택된 좌석: 3번", 13, 600)
 s.button(side_x, 104, side_w, "시간 +10분")
 s.button(side_x, 134, side_w, "시간 -10분")
 s.button(side_x, 164, side_w, "강제 종료")
-s.titled(side_x, 200, side_w, CH - 216, "채팅 (선택된 좌석에게 전송)", "채팅")
-s.textarea(side_x + 10, 220, side_w - 20, CH - 290, [
-    "[3번 테스트] 라면 언제 나와요?",
-    "[관리자 → 3번] 곧 갖다드릴게요",
-    "[주문] 3번 테스트: 라면 2개",
+s.button(side_x, 198, side_w / 2 - 3, "좌석 추가")
+s.button(side_x + side_w / 2 + 3, 198, side_w / 2 - 3, "좌석 삭제")
+s.titled(side_x, 236, side_w, CH - 252, "채팅 (선택된 좌석에게 전송)", "채팅")
+s.textarea(side_x + 10, 256, side_w - 20, CH - 326, [
+    "── 3번 좌석 test 님과의 대화 ──",
+    "[test] 라면 언제 나와요?",
+    "[관리자] 곧 갖다드릴게요",
+    "[주문] 3번 테스트: 라면 2개, 콜라 1개",
 ])
 s.field(side_x + 10, CH - 62, side_w - 20, "메시지 입력 후 Enter", placeholder=True)
 s.g_close()
@@ -266,20 +278,20 @@ s.marker(8, 6, 1, "게스트 추가: 누를 때마다 new GuestFrame(this) → �
 s.marker(8, 40, 2, "JTabbedPane: 탭을 고르면 BasePanel.refresh()로 DB를 다시 읽음")
 s.marker(16, 75, 3, "좌석판: 회색 = 빈자리, 파랑 = 사용 중(이름 + 남은 시간, 1초마다 갱신), 클릭 = 선택(파란 테두리)")
 s.marker(side_x, 104, 4, "시간 ±10분 / 강제 종료: 선택한 좌석의 GuestFrame에 addSeconds() / forceLogout()")
-s.marker(side_x, 200, 5, "채팅: 선택한 좌석에게 전송. 게스트 메시지와 주문 알림도 여기 표시")
+s.marker(side_x, 198, 5, "좌석 추가 / 삭제: 마지막 번호 다음으로 추가, 빈 좌석만 삭제 (SeatDAO, synchronized)")
+s.marker(side_x, 236, 6, "채팅: 좌석을 고르면 그 손님과의 이전 대화(최근 50개)를 불러옴. 보낼 때 chat_message에 저장")
 s.render()
 
 # 03 회원 관리 탭
 s = admin_screen("03_관리자_회원관리", "03 관리자 · 회원 관리 탭", "회원 관리")
-s.label(24, 98, "아이디 / 이름")
-s.field(112, 80, 160, "")
-s.button(280, 80, 60, "검색")
+s.label(24, 98, "검색 기준")
+s.combo(92, 80, 150, "전화번호 뒤 4자리", gid="JComboBox 검색 기준")
+s.field(250, 80, 140, "5678")
+s.button(398, 80, 60, "검색")
 s.table(16, 116, ADMIN_W - 32,
-        [("아이디", 1), ("이름", 1), ("전화번호", 1.3), ("남은 시간", 1), ("구분", 0.8), ("상태", 0.8)],
-        [["admin", "관리자", "", "00:00:00", "관리자", ""],
-         ["test", "테스트", "", "00:58:03", "회원", "사용 중"],
-         ["hong", "홍길동", "010-1234-5678", "01:30:00", "회원", ""]],
-        selected=2, h=CH - 116 - 96)
+        [("아이디", 1), ("이름", 1), ("전화번호", 1.3), ("남은 시간", 1), ("포인트", 0.8), ("구분", 0.8), ("상태", 0.8)],
+        [["hong", "홍길동", "010-1234-5678", "01:30:00", "375P", "회원", ""]],
+        selected=0, h=CH - 116 - 96)
 fy = CH - 86
 s.label(24, fy + 18, "이름"); s.field(60, fy, 110, "홍길동")
 s.label(184, fy + 18, "전화번호"); s.field(244, fy, 140, "010-1234-5678")
@@ -288,8 +300,8 @@ s.label(598, fy + 18, "남은 시간(분)"); s.field(686, fy, 70, "90")
 s.button(24, fy + 36, 64, "수정")
 s.button(96, fy + 36, 64, "삭제")
 s.label(172, fy + 54, "비밀번호는 비워두면 그대로 유지", 12, 400, "start", C["sub"])
-s.marker(16, 80, 1, "검색: 아이디 또는 이름에 포함된 회원 (MemberDAO.search, 빈칸 = 전체)")
-s.marker(16, 116, 2, "회원 표: 줄을 클릭하면 아래 입력칸이 채워짐. 사용 중인 회원은 '사용 중' 표시")
+s.marker(16, 80, 1, "검색 기준: 이름 / 전화번호 뒤 4자리('-' 빼고 끝자리 비교) / 아이디. 빈칸 = 전체")
+s.marker(16, 116, 2, "회원 표: 줄을 클릭하면 아래 입력칸이 채워짐. 포인트 열 추가, 사용 중인 회원은 '사용 중' 표시")
 s.marker(16, fy, 3, "수정: 관리자·사용 중 회원은 수정/삭제 불가, 남은 시간은 분 단위")
 s.render()
 
@@ -308,38 +320,66 @@ s.label(24, fy + 18, "이름"); s.field(60, fy, 120, "라면")
 s.label(194, fy + 18, "가격"); s.field(230, fy, 80, "3000")
 s.label(324, fy + 18, "분류"); s.field(360, fy, 80, "식사")
 s.label(454, fy + 18, "재고"); s.field(490, fy, 60, "48")
-s.button(24, fy + 36, 64, "추가")
-s.button(96, fy + 36, 64, "수정")
-s.button(168, fy + 36, 64, "삭제")
-s.button(240, fy + 36, 84, "새로 입력")
+s.button(24, fy + 36, 110, "신규 메뉴 등록")
+s.button(142, fy + 36, 84, "정보 수정")
+s.button(234, fy + 36, 84, "재고 입고")
+s.button(326, fy + 36, 64, "삭제")
+s.button(398, fy + 36, 110, "입력칸 비우기")
 s.marker(16, 80, 1, "메뉴 표: 분류 → 이름 순. 셀은 직접 수정 불가(readOnlyModel)")
 s.marker(16, fy, 2, "입력칸: 줄을 클릭하면 채워짐. 가격/재고는 0 이상의 숫자만")
-s.marker(16, fy + 36, 3, "추가 / 수정 / 삭제(확인창) / 새로 입력(선택 해제 + 칸 비우기)")
+s.marker(16, fy + 36, 3, "신규 메뉴 등록 / 정보 수정 / 재고 입고(수량 입력 → stock + n) / 삭제(확인창) / 입력칸 비우기(DB는 그대로)")
 s.render()
 
-# 05 주문 탭
-s = admin_screen("05_관리자_주문", "05 관리자 · 주문 탭", "주문")
+# 05 요금제 관리 탭
+s = admin_screen("05_관리자_요금제관리", "05 관리자 · 요금제 관리 탭", "요금제 관리")
 s.table(16, 80, ADMIN_W - 32,
-        [("주문번호", 0.8), ("시간", 1.1), ("좌석", 0.6), ("회원", 0.8), ("메뉴", 1.2), ("수량", 0.6), ("금액", 0.8), ("상태", 0.6)],
-        [["2", "11-02 13:42", "3번", "test", "콜라", "1", "1,500", "대기"],
-         ["1", "11-02 13:40", "3번", "test", "라면", "2", "6,000", "완료"]],
+        [("번호", 0.6), ("요금제", 1.4), ("시간(분)", 1), ("가격", 1)],
+        [["1", "30분 - 500원", "30", "500"],
+         ["2", "1시간 - 1,000원", "60", "1,000"],
+         ["3", "3시간 - 3,000원", "180", "3,000"],
+         ["4", "5시간 - 5,000원", "300", "5,000"]],
+        selected=1, h=CH - 80 - 96)
+fy = CH - 86
+s.label(24, fy + 18, "시간(분)"); s.field(84, fy, 70, "60")
+s.label(168, fy + 18, "가격(원)"); s.field(228, fy, 90, "1000")
+s.button(24, fy + 36, 124, "신규 요금제 등록")
+s.button(156, fy + 36, 84, "정보 수정")
+s.button(248, fy + 36, 64, "삭제")
+s.button(320, fy + 36, 110, "입력칸 비우기")
+s.marker(16, 80, 1, "요금제 표 (time_product): 게스트의 시간 구매 목록이 여기서 정한 요금제로 나옴")
+s.marker(16, fy, 2, "시간(분)은 1 이상, 가격은 0 이상의 숫자")
+s.marker(16, fy + 36, 3, "신규 요금제 등록 / 정보 수정 / 삭제(확인창) / 입력칸 비우기")
+s.render()
+
+# 06 주문 탭
+s = admin_screen("06_관리자_주문", "06 관리자 · 주문 탭", "주문")
+s.table(16, 80, ADMIN_W - 32,
+        [("주문번호", 0.7), ("시간", 1), ("좌석", 0.5), ("회원", 0.7), ("품목", 1.8), ("결제 금액", 0.8), ("상태", 0.5)],
+        [["3", "11-17 13:42", "3번", "test", "라면 2개, 콜라 1개", "7,500", "대기"],
+         ["2", "11-17 13:30", "5번", "hong", "콜라 1개", "1,500", "취소"],
+         ["1", "11-17 13:10", "3번", "test", "과자 1개", "1,500", "완료"]],
         selected=0, h=CH - 80 - 52)
 s.button(24, CH - 42, 84, "완료 처리")
 s.button(116, CH - 42, 84, "주문 취소")
 s.button(208, CH - 42, 84, "새로고침")
-s.marker(16, 80, 1, "주문 표: 대기 주문이 위, 그 안에서는 최근 주문이 위 (orders + menu JOIN)")
-s.marker(16, CH - 42, 2, "완료 처리 = 상태 DONE / 주문 취소 = 삭제 + 재고 복구 + 환불(음수 결제) 기록")
+s.marker(16, 80, 1, "주문 표: 대기 주문이 위. 품목·금액은 payment_detail · payment에서 (결제 당시 값이라 가격이 바뀌어도 그대로)")
+s.marker(16, CH - 42, 2, "완료 처리 = 대기 → 완료 / 주문 취소(트랜잭션) = 취소 상태 + 음수 환불 결제 + 재고 복구 + 포인트 되돌리기")
 s.render()
 
-# 06 매출 탭
-s = admin_screen("06_관리자_매출", "06 관리자 · 매출 탭", "매출")
+# 07 매출 탭
+s = admin_screen("07_관리자_매출", "07 관리자 · 매출 탭", "매출")
 s.label(24, 98, "오늘 매출", 13, 600)
 s.button(96, 80, 84, "새로고침")
-for i, (k, v) in enumerate([("시간 판매", "500원"), ("음식 판매", "7,500원"), ("합계", "8,000원")]):
+for i, (k, v) in enumerate([("시간 판매", "1,000원"), ("음식 판매", "7,500원"), ("합계", "8,500원")]):
     y = 140 + i * 40
     s.label(24, y, k)
     s.label(160, y, v, 18 if k == "합계" else 13, 700 if k == "합계" else 400)
+for i, (k, v) in enumerate([("카드", "5,000원"), ("현금", "3,500원"), ("포인트 사용", "0원")]):
+    y = 290 + i * 40
+    s.label(24, y, k)
+    s.label(160, y, v)
 s.marker(16, 120, 1, "오늘 날짜의 payment 합계 (PaymentDAO.sumToday). 환불은 음수라 자동으로 빠짐")
+s.marker(16, 270, 2, "결제 수단별 합계 (card_amount / cash_amount / point_amount)")
 s.render()
 
 # ======================================================================
@@ -348,7 +388,7 @@ GW, GH = 420, 520
 GCH = GH - TITLE_H
 
 # 07 게스트 로그인
-s = screen("07_게스트_로그인", "07 게스트 · 로그인 카드", "PC방 - 게스트", GW, GH)
+s = screen("08_게스트_로그인", "08 게스트 · 로그인 카드", "PC방 - 게스트", GW, GH)
 s.label(GW / 2, 110, "PC방 로그인", 22, 700, "middle")
 for i, (k, v, pw) in enumerate([("아이디", "test", False), ("비밀번호", "1234", True)]):
     y = 160 + i * 44
@@ -359,13 +399,13 @@ s.combo(150, 160 + 88, 222, "3", h=30)
 s.button(GW / 2 - 104, 340, 100, "로그인", h=30, primary=True)
 s.button(GW / 2 + 4, 340, 100, "회원가입", h=30)
 s.marker(38, 160, 1, "아이디 / 비밀번호 (비밀번호 칸에서 Enter = 로그인)")
-s.marker(38, 248, 2, "좌석: 빈 좌석만 표시 (SeatDAO.findEmptySeatNos)")
-s.marker(GW / 2 - 114, 340, 3, "로그인: 중복 접속 · 관리자 계정 · 이미 찬 좌석 검사 후 사용 중 카드로 전환")
+s.marker(38, 248, 2, "좌석: 빈 좌석만 표시. 펼칠 때마다 DB에서 다시 읽음 (PopupMenuListener)")
+s.marker(GW / 2 - 114, 340, 3, "로그인: 중복 접속 · 관리자 계정 · 이미 찬 좌석 검사 → 사용 중 카드. 남은 시간 0이면 시간 구매 창")
 s.marker(GW / 2 + 104, 340, 4, "회원가입: SignUpDialog (모달)")
 s.render()
 
 # 08 게스트 사용 중
-s = screen("08_게스트_사용중", "08 게스트 · 사용 중 카드", "PC방 - 게스트", GW, GH)
+s = screen("09_게스트_사용중", "09 게스트 · 사용 중 카드", "PC방 - 게스트", GW, GH)
 s.label(GW / 2, 34, "3번 좌석 · 테스트님", 13, 400, "middle")
 s.label(GW / 2, 64, "남은 시간", 13, 400, "middle", C["sub"])
 s.label(GW / 2, 108, "00:58:03", 36, 700, "middle")
@@ -373,20 +413,20 @@ s.titled(12, 128, GW - 24, GCH - 128 - 52, "관리자 채팅", "채팅")
 s.textarea(22, 148, GW - 44, GCH - 128 - 52 - 74, [
     "나: 라면 언제 나와요?",
     "관리자: 곧 갖다드릴게요",
-    "[주문] 라면 2개 (6,000원)",
+    "[주문 3번] 라면 2개, 콜라 1개 (7,500원)",
 ])
 s.field(22, GCH - 52 - 40, GW - 44, "메시지 입력 후 Enter", placeholder=True)
 bx = GW / 2 - 150
 s.button(bx, GCH - 40, 96, "시간 구매")
 s.button(bx + 102, GCH - 40, 96, "음식 주문")
 s.button(bx + 204, GCH - 40, 96, "사용 종료")
-s.marker(70, 96, 1, "남은 시간: TimerThread가 1초마다 감소, 5분 남으면 경고, 0이면 자동 종료")
-s.marker(12, 128, 2, "관리자 채팅: Enter로 전송 (admin.receiveMessage)")
-s.marker(bx - 10, GCH - 40, 3, "시간 구매 / 음식 주문 → 팝업, 사용 종료 → 시간 저장 후 로그인 카드로")
+s.marker(70, 96, 1, "남은 시간: TimerThread가 1초마다 감소, 5분 이하로 처음 내려가면 경고, 0이면 자동 종료")
+s.marker(12, 128, 2, "관리자 채팅: Enter로 전송 + chat_message 저장. 로그인하면 이전 대화를 불러옴")
+s.marker(bx - 10, GCH - 40, 3, "시간 구매(11) / 음식 주문(12) → 결제 수단 창(13), 사용 종료 → 시간 저장 후 로그인 카드로")
 s.render()
 
 # 09 회원가입
-s = screen("09_회원가입", "09 회원가입 · SignUpDialog (모달)", "회원가입", 300, 236)
+s = screen("10_회원가입", "10 회원가입 · SignUpDialog (모달)", "회원가입", 300, 236)
 for i, (k, v, pw) in enumerate([("아이디", "hong", False), ("비밀번호", "1234", True), ("이름", "홍길동", False), ("전화번호", "010-1234-5678", False)]):
     y = 16 + i * 34
     s.label(16, y + 18, k)
@@ -397,32 +437,57 @@ s.marker(8, 160, 2, "가입: 아이디 중복 확인(existsById) 후 MemberDAO.i
 s.render()
 
 # 10 시간 구매 팝업
-s = screen("10_팝업_시간구매", "10 팝업 · 시간 구매 (JOptionPane.showInputDialog)", "시간 구매", 340, 170)
+s = screen("11_팝업_시간구매", "11 팝업 · 시간 구매 (JOptionPane.showInputDialog)", "시간 구매", 340, 170)
 s.add(f'<circle cx="{s.ox + 40}" cy="{s.oy + 44}" r="20" fill="{C["primary"]}"/>')
 s.text(40, 51, "?", 22, 700, "middle", "#FFFFFF")
 s.label(76, 32, "구매할 시간을 선택하세요.")
 s.combo(76, 44, 244, "30분 - 500원")
 s.button(158, 98, 76, "취소")
 s.button(244, 98, 76, "확인", primary=True)
-s.marker(66, 44, 1, "요금표 (time_product): 30분 500원 / 1시간 1,000원 / 3시간 3,000원 / 5시간 5,000원")
-s.marker(148, 98, 2, "확인: payment 기록(TIME) → 시간 추가 → DB 저장")
+s.marker(66, 44, 1, "요금제 (time_product): 관리자 요금제 관리 탭에서 정한 목록")
+s.marker(148, 98, 2, "확인 → 결제 수단 창(13) → 결제 · 결제 상세 · 포인트 저장(트랜잭션) → 시간 추가")
 s.render()
 
-# 11 음식 주문 팝업
-s = screen("11_팝업_음식주문", "11 팝업 · 음식 주문 (JOptionPane.showConfirmDialog)", "음식 주문", 320, 170)
-s.label(20, 36, "메뉴"); s.combo(80, 18, 220, "라면 - 3,000원")
-s.label(20, 70, "수량"); s.spinner(80, 52, 220, "2")
-s.button(138, 98, 76, "취소")
-s.button(224, 98, 76, "확인", primary=True)
-s.marker(70, 18, 1, "메뉴: menu 테이블 전체")
-s.marker(70, 52, 2, "수량: 1 ~ 10 (SpinnerNumberModel)")
-s.marker(128, 98, 3, "확인: 재고 차감(부족하면 거절) → 주문 · 결제 저장 → 관리자에게 알림")
+# 12 음식 주문 (장바구니)
+s = screen("12_팝업_음식주문", "12 팝업 · 음식 주문 장바구니", "음식 주문 (장바구니)", 400, 300)
+s.combo(20, 16, 170, "라면 - 3,000원")
+s.spinner(198, 16, 70, "2")
+s.button(276, 16, 64, "담기")
+s.g_open("JList 장바구니 (JScrollPane)")
+s.rect(20, 52, 360, 140, fill=C["field"], stroke=C["border"], rx=4)
+s.rect(21, 53, 358, 24, fill=C["rowsel"])
+s.text(28, 70, "라면 × 2 = 6,000원", 12.5)
+s.text(28, 94, "콜라 × 1 = 1,500원", 12.5)
+s.g_close()
+s.button(20, 200, 64, "빼기")
+s.label(380, 218, "합계: 7,500원", 13, 700, "end")
+s.button(218, 232, 76, "취소")
+s.button(304, 232, 76, "확인", primary=True)
+s.marker(10, 16, 1, "메뉴 + 수량(1~10) 고르고 담기. 같은 메뉴는 수량을 합침")
+s.marker(10, 52, 2, "장바구니 목록: 줄을 고르고 빼기. 합계는 담을 때마다 다시 계산")
+s.marker(208, 232, 3, "확인 → 결제 수단 창(13). 비어 있으면 '메뉴를 담아 주세요'")
+s.render()
+
+# 13 결제 수단 창
+s = screen("13_결제수단", "13 결제 수단 · PaymentDialog (모달)", "음식 결제", 320, 270)
+s.label(28, 26, "결제 금액: 7,500원")
+s.label(28, 48, "보유 포인트: 375P  (카드·현금 결제액의 5% 적립)", 12)
+s.label(28, 70, "금액이 맞습니다.", 12, 400, "start", C["sub"])
+for i, (k, v) in enumerate([("카드", "5000"), ("현금", "2500"), ("포인트", "0")]):
+    y = 90 + i * 36
+    s.label(28, y + 18, k)
+    s.field(88, y, 216, v, h=28)
+s.button(146, 206, 76, "결제", primary=True)
+s.button(228, 206, 76, "취소")
+s.marker(12, 22, 1, "결제 금액과 보유 포인트. 남은 금액을 입력할 때마다 다시 계산")
+s.marker(12, 104, 2, "카드 + 현금 + 포인트 = 결제 금액이어야 하고, 포인트는 보유한 만큼만")
+s.marker(136, 206, 3, "결제: PaymentService 트랜잭션 (재고 · 결제 · 결제 상세 · 주문 · 포인트). 실패하면 rollback")
 s.render()
 
 
 # ======================================================================
 # 00 화면 흐름도
-W, H = 1000, 720
+W, H = 1000, 800
 parts = []
 
 
@@ -456,17 +521,18 @@ box(32, 100, 120, 56, "실행", ["Main"])
 box(200, 100, 170, 56, "관리자 로그인", ["01 AdminLoginFrame"])
 box(430, 100, 210, 56, "관리자 창 · 좌석", ["02 AdminFrame"], accent=True)
 parts.append('<g id="관리 탭">')
-parts.append(f'<rect x="740" y="84" width="220" height="200" rx="8" fill="#F5F5F7" stroke="#C7C7CC"/>')
+parts.append(f'<rect x="740" y="84" width="220" height="280" rx="8" fill="#F5F5F7" stroke="#C7C7CC"/>')
 parts.append(f'<text x="756" y="106" font-family="{FONT}" font-size="12" font-weight="700" fill="{C["sub"]}">관리 탭 (BasePanel)</text>')
-for i, (n, t) in enumerate([("03", "회원 관리"), ("04", "메뉴 관리"), ("05", "주문"), ("06", "매출")]):
+for i, (n, t) in enumerate([("03", "회원 관리"), ("04", "메뉴 관리"), ("05", "요금제 관리"), ("06", "주문"), ("07", "매출")]):
     box(756, 118 + i * 40, 188, 32, f"{n} {t}", gid=f"탭 {t}")
 parts.append("</g>")
 
-box(430, 290, 210, 56, "게스트 · 로그인", ["07 GuestFrame"])
-box(160, 290, 180, 56, "회원가입", ["09 SignUpDialog"])
-box(430, 470, 210, 56, "게스트 · 사용 중", ["08 GuestFrame"], accent=True)
-box(340, 610, 170, 48, "시간 구매 팝업", ["10"])
-box(560, 610, 170, 48, "음식 주문 팝업", ["11"])
+box(430, 290, 210, 56, "게스트 · 로그인", ["08 GuestFrame"])
+box(160, 290, 180, 56, "회원가입", ["10 SignUpDialog"])
+box(430, 470, 210, 56, "게스트 · 사용 중", ["09 GuestFrame"], accent=True)
+box(340, 610, 170, 48, "시간 구매 팝업", ["11"])
+box(560, 610, 170, 48, "음식 주문 장바구니", ["12"])
+box(430, 712, 210, 56, "결제 수단 창", ["13 PaymentDialog"], accent=True)
 box(32, 450, 250, 96, "종료 (endSession)", ["사용 종료 버튼 · 창 X", "남은 시간 0초 · 관리자 강제 종료"])
 
 arrow("M152 128H198")
@@ -477,6 +543,9 @@ arrow("M428 318H342", None, both=True)
 arrow("M535 346V468", "로그인 성공\nTimerThread 시작", 545, 400, "start")
 arrow("M480 526V608")
 arrow("M590 526V608")
+arrow("M425 658V685H500V710")
+arrow("M645 658V685H570V710")
+parts.append(f'<text x="660" y="700" font-family="{FONT}" font-size="12" fill="{C["sub"]}">결제 · 결제 상세 · 주문 · 포인트 = 트랜잭션 1번</text>')
 arrow("M428 498H284")
 arrow("M157 450V400H470V348", "시간 저장 · 좌석 비움", 170, 392, "start")
 arrow("M640 498H690V140H642", None, dashed=True)

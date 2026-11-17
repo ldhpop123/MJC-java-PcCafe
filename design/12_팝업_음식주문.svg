@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="485" height="510" viewBox="0 0 485 510">
+<title>12 팝업 · 음식 주문 장바구니</title>
+<rect width="485" height="510" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">12 팝업 · 음식 주문 장바구니</text>
+<text x="453" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">400 × 300</text>
+<g id="창">
+<rect x="32" y="72" width="400" height="300" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
+<path d="M32 100V82a10 10 0 0 1 10 -10H422a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
+<circle cx="48" cy="86" r="6" fill="#FF5F57"/>
+<circle cx="68" cy="86" r="6" fill="#FEBC2E"/>
+<circle cx="88" cy="86" r="6" fill="#28C840"/>
+<text x="232.0" y="91" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">음식 주문 (장바구니)</text>
+</g>
+<g id="내용">
+<g id="JComboBox">
+<rect x="52" y="116" width="170" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="60" y="133.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">라면 - 3,000원</text>
+<rect x="200" y="120" width="18" height="18" rx="3" fill="#0A84FF"/>
+<text x="209" y="133.0" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">▾</text>
+</g>
+<g id="JSpinner">
+<rect x="230" y="116" width="70" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="238" y="133.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">2</text>
+<text x="288" y="127" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="9" font-weight="400" text-anchor="middle" fill="#6E6E73">▴</text>
+<text x="288" y="137" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="9" font-weight="400" text-anchor="middle" fill="#6E6E73">▾</text>
+</g>
+<g id="JButton 담기">
+<rect x="308" y="116" width="64" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="340.0" y="133.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">담기</text>
+</g>
+<g id="JList 장바구니 (JScrollPane)">
+<rect x="52" y="152" width="360" height="140" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<rect x="53" y="153" width="358" height="24" rx="0" fill="#D6E8FF"/>
+<text x="60" y="170" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">라면 × 2 = 6,000원</text>
+<text x="60" y="194" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">콜라 × 1 = 1,500원</text>
+</g>
+<g id="JButton 빼기">
+<rect x="52" y="300" width="64" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="84.0" y="317.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">빼기</text>
+</g>
+<text x="412" y="318" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" text-anchor="end" fill="#1D1D1F">합계: 7,500원</text>
+<g id="JButton 취소">
+<rect x="250" y="332" width="76" height="26" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="288.0" y="349.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">취소</text>
+</g>
+<g id="JButton 확인">
+<rect x="336" y="332" width="76" height="26" rx="6" fill="#0A84FF"/>
+<text x="374.0" y="349.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#FFFFFF">확인</text>
+</g>
+<g id="표시 1"><circle cx="42" cy="116" r="10" fill="#FF3B30"/><text x="42" y="120" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text></g>
+<g id="표시 2"><circle cx="42" cy="152" r="10" fill="#FF3B30"/><text x="42" y="156" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
+<g id="표시 3"><circle cx="240" cy="332" r="10" fill="#FF3B30"/><text x="240" y="336" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text></g>
+</g>
+<g id="범례">
+<text x="32" y="404" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
+<circle cx="41" cy="424" r="9" fill="#FF3B30"/>
+<text x="41" y="428" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
+<text x="58" y="428" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">메뉴 + 수량(1~10) 고르고 담기. 같은 메뉴는 수량을 합침</text>
+<circle cx="41" cy="446" r="9" fill="#FF3B30"/>
+<text x="41" y="450" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="58" y="450" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">장바구니 목록: 줄을 고르고 빼기. 합계는 담을 때마다 다시 계산</text>
+<circle cx="41" cy="468" r="9" fill="#FF3B30"/>
+<text x="41" y="472" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+<text x="58" y="472" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">확인 → 결제 수단 창(13). 비어 있으면 '메뉴를 담아 주세요'</text>
+</g>
+</svg>
