@@ -108,4 +108,44 @@ public class SeatDAO {
             }
         }
     }
+
+    // 총 좌석 수를 total개로 맞춘다. 모자라면 마지막 번호 뒤로 빈 좌석을 만들고,
+    // 남으면 번호가 큰 빈 좌석부터 지운다. 사용 중인 좌석은 지우지 않으므로 total보다 많이 남을 수 있다.
+    // 맞춘 뒤의 실제 좌석 수를 돌려준다
+    public int resizeTo(int total) throws SQLException {
+        synchronized (LOCK) {
+            try (Connection conn = DBUtil.getConnection()) {
+                int count = countSeats(conn);
+                if (count < total) {
+                    int next;
+                    try (PreparedStatement ps = conn.prepareStatement("SELECT COALESCE(MAX(seat_no), 0) + 1 FROM seat");
+                         ResultSet rs = ps.executeQuery()) {
+                        rs.next();
+                        next = rs.getInt(1);
+                    }
+                    try (PreparedStatement ps = conn.prepareStatement("INSERT INTO seat (seat_no) VALUES (?)")) {
+                        for (int i = 0; i < total - count; i++) {
+                            ps.setInt(1, next + i);
+                            ps.executeUpdate();
+                        }
+                    }
+                } else if (count > total) {
+                    String sql = "DELETE FROM seat WHERE status = 'EMPTY' ORDER BY seat_no DESC LIMIT ?";
+                    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                        ps.setInt(1, count - total);
+                        ps.executeUpdate();
+                    }
+                }
+                return countSeats(conn);
+            }
+        }
+    }
+
+    private int countSeats(Connection conn) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM seat");
+             ResultSet rs = ps.executeQuery()) {
+            rs.next();
+            return rs.getInt(1);
+        }
+    }
 }

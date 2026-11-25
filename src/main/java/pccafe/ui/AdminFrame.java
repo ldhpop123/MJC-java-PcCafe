@@ -18,9 +18,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -42,6 +44,7 @@ public class AdminFrame extends BaseFrame {
     private static final Color USING_COLOR = new Color(170, 215, 255);
     private static final Color SELECTED_BORDER = new Color(30, 110, 220);
     private static final int CHAT_HISTORY_SIZE = 50;
+    private static final int MAX_SEATS = 100;
 
     private final List<GuestFrame> guests = new ArrayList<>();
     private final Map<Integer, JLabel> seatLabels = new LinkedHashMap<>();
@@ -50,6 +53,7 @@ public class AdminFrame extends BaseFrame {
 
     private int selectedSeat = -1;
     private JPanel board;
+    private final JSpinner seatTotalSpinner = new JSpinner(new SpinnerNumberModel(12, 1, MAX_SEATS, 1));
     private JLabel selectedLabel;
     private JTextArea chatLog;
     private JTextField chatInput;
@@ -140,8 +144,32 @@ public class AdminFrame extends BaseFrame {
         } else {
             seatLabels.get(selectedSeat).setBorder(BorderFactory.createLineBorder(SELECTED_BORDER, 3));
         }
+        seatTotalSpinner.setValue(seatLabels.size());
         board.revalidate();
         board.repaint();
+    }
+
+    // 총 좌석 수 입력 → 그 수에 맞게 좌석을 만들거나 지운다. 사용 중인 좌석은 지우지 않는다
+    private void resizeSeats() {
+        int total = (Integer) seatTotalSpinner.getValue();
+        int current = seatLabels.size();
+        if (total == current) {
+            showInfo("이미 " + total + "석입니다.");
+            return;
+        }
+        if (total < current && !confirm(String.format("좌석을 %d석에서 %d석으로 줄일까요?%n"
+                + "번호가 큰 빈 좌석부터 지우고, 사용 중인 좌석은 지우지 않습니다.", current, total))) {
+            seatTotalSpinner.setValue(current);
+            return;
+        }
+        try {
+            int result = seatDAO.resizeTo(total);
+            rebuildBoard();
+            showInfo(result == total ? "총 좌석 수를 " + total + "석으로 맞췄습니다."
+                    : String.format("사용 중인 좌석이 있어 %d석까지만 줄였습니다.", result));
+        } catch (SQLException e) {
+            showError(e);
+        }
     }
 
     private void addSeat() {
@@ -245,11 +273,19 @@ public class AdminFrame extends BaseFrame {
         seatButtons.add(addSeat);
         seatButtons.add(deleteSeat);
 
+        JButton applyTotal = new JButton("적용");
+        applyTotal.addActionListener(e -> resizeSeats());
+        JPanel totalRow = new JPanel(new BorderLayout(6, 0));
+        totalRow.add(new JLabel("총 좌석 수"), BorderLayout.WEST);
+        totalRow.add(seatTotalSpinner, BorderLayout.CENTER);
+        totalRow.add(applyTotal, BorderLayout.EAST);
+
         JPanel controls = new JPanel(new GridLayout(0, 1, 4, 4));
         controls.add(selectedLabel);
         controls.add(plus);
         controls.add(minus);
         controls.add(kick);
+        controls.add(totalRow);
         controls.add(seatButtons);
 
         chatLog = new JTextArea();

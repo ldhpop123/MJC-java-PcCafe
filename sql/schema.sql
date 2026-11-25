@@ -12,7 +12,10 @@ CREATE TABLE member (
     remain_seconds INT NOT NULL DEFAULT 0,
     is_admin       BOOLEAN NOT NULL DEFAULT FALSE,
     point          INT NOT NULL DEFAULT 0,               -- 보유 포인트 (카드·현금 결제액의 5% 적립)
-    created_at     DATETIME DEFAULT CURRENT_TIMESTAMP
+    pw_question    VARCHAR(50) NULL,                     -- 비밀번호 찾기 질문 (관리자·예전 회원은 NULL)
+    pw_answer      VARCHAR(50) NULL,                     -- 비밀번호 찾기 답변
+    created_at     DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_member_pw_qa CHECK ((pw_question IS NULL) = (pw_answer IS NULL))  -- 질문과 답변은 함께 있거나 함께 없다
 );
 
 CREATE TABLE seat (
@@ -92,7 +95,8 @@ CREATE TABLE chat_message (
 
 -- 초기 데이터
 INSERT INTO member (id, password, name, is_admin) VALUES ('admin', 'admin', '관리자', TRUE);
-INSERT INTO member (id, password, name, remain_seconds) VALUES ('test', '1234', '테스트', 3600);
+INSERT INTO member (id, password, name, phone, remain_seconds, pw_question, pw_answer)
+    VALUES ('test', '1234', '테스트', '010-1234-5678', 3600, '태어난 도시는?', '서울');
 
 INSERT INTO seat (seat_no) VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12);
 

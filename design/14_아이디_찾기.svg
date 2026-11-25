@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="650" height="540" viewBox="0 0 650 540">
+<title>14 아이디 찾기 · FindAccountDialog</title>
+<rect width="650" height="540" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">14 아이디 찾기 · FindAccountDialog</text>
+<text x="618" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">400 × 330</text>
+<g id="창">
+<rect x="32" y="72" width="400" height="330" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
+<path d="M32 100V82a10 10 0 0 1 10 -10H422a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
+<circle cx="48" cy="86" r="6" fill="#FF5F57"/>
+<circle cx="68" cy="86" r="6" fill="#FEBC2E"/>
+<circle cx="88" cy="86" r="6" fill="#28C840"/>
+<text x="232.0" y="91" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">아이디 · 비밀번호 찾기</text>
+</g>
+<g id="내용">
+<g id="JTabbedPane 탭">
+<rect x="134.0" y="106" width="106" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<rect x="135.0" y="130" width="104" height="6" rx="0" fill="#FFFFFF"/>
+<text x="187.0" y="124" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">아이디 찾기</text>
+<rect x="242.0" y="106" width="119" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="301.5" y="124" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">비밀번호 찾기</text>
+</g>
+<rect x="40" y="133" width="384" height="261" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="56" y="166" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" font-weight="400" text-anchor="start" fill="#1D1D1F">가입할 때 입력한 이름과 전화번호를 입력하세요.</text>
+<text x="56" y="208" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">이름</text>
+<g id="JTextField">
+<rect x="132" y="190" width="276" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="140" y="208.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">홍길동</text>
+</g>
+<text x="56" y="246" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">전화번호</text>
+<g id="JTextField">
+<rect x="132" y="228" width="276" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="140" y="246.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">01012345678</text>
+</g>
+<g id="JButton 아이디 찾기">
+<rect x="56" y="296" width="352" height="28" rx="6" fill="#0A84FF"/>
+<text x="232.0" y="314.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#FFFFFF">아이디 찾기</text>
+</g>
+<text x="56" y="350" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="14" font-weight="700" text-anchor="start" fill="#1D1D1F">회원님의 아이디: hong</text>
+<g id="표시 1"><circle cx="134.0" cy="106" r="10" fill="#FF3B30"/><text x="134.0" y="110" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text></g>
+<g id="표시 2"><circle cx="132" cy="190" r="10" fill="#FF3B30"/><text x="132" y="194" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
+<g id="표시 3"><circle cx="46" cy="296" r="10" fill="#FF3B30"/><text x="46" y="300" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text></g>
+</g>
+<g id="범례">
+<text x="32" y="434" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
+<circle cx="41" cy="454" r="9" fill="#FF3B30"/>
+<text x="41" y="458" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
+<text x="58" y="458" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">로그인 화면의 [아이디 찾기] / [비밀번호 찾기] 버튼이 각각 해당 탭을 연 채로 띄움</text>
+<circle cx="41" cy="476" r="9" fill="#FF3B30"/>
+<text x="41" y="480" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="58" y="480" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">이름 + 전화번호: '-'를 넣든 빼든 같은 번호로 비교 (REPLACE). 관리자 계정은 찾지 않음</text>
+<circle cx="41" cy="498" r="9" fill="#FF3B30"/>
+<text x="41" y="502" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+<text x="58" y="502" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">아이디 찾기: MemberDAO.findIds() → 같은 이름·번호의 아이디를 모두 표시</text>
+</g>
+</svg>

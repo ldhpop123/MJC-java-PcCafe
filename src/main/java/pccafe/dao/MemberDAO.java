@@ -17,7 +17,8 @@ public class MemberDAO {
     public static final String BY_ID = "아이디";
 
     public void insert(Member m) throws SQLException {
-        String sql = "INSERT INTO member (id, password, name, phone, remain_seconds) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO member (id, password, name, phone, remain_seconds, pw_question, pw_answer)"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, m.getId());
@@ -25,6 +26,8 @@ public class MemberDAO {
             ps.setString(3, m.getName());
             ps.setString(4, m.getPhone());
             ps.setInt(5, m.getRemainSeconds());
+            ps.setString(6, m.getPwQuestion());
+            ps.setString(7, m.getPwAnswer());
             ps.executeUpdate();
         }
     }
@@ -55,6 +58,48 @@ public class MemberDAO {
 
     public boolean existsById(String id) throws SQLException {
         return findById(id) != null;
+    }
+
+    // 아이디 찾기: 이름과 전화번호가 같은 일반 회원의 아이디. 전화번호는 '-' 유무와 상관없이 비교한다
+    public List<String> findIds(String name, String phone) throws SQLException {
+        String sql = "SELECT id FROM member WHERE name = ? AND REPLACE(phone, '-', '') = REPLACE(?, '-', '')"
+                + " AND is_admin = FALSE ORDER BY created_at";
+        List<String> list = new ArrayList<>();
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ps.setString(2, phone);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getString("id"));
+                }
+            }
+        }
+        return list;
+    }
+
+    // 비밀번호 찾기 1단계: 일반 회원의 질문. 없는 아이디·관리자·질문 미등록 회원이면 null
+    public String findPwQuestion(String id) throws SQLException {
+        String sql = "SELECT pw_question FROM member WHERE id = ? AND is_admin = FALSE";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? rs.getString("pw_question") : null;
+            }
+        }
+    }
+
+    // 비밀번호 찾기 2단계: 답변이 맞을 때만 새 비밀번호로 바꾼다. 답변이 틀리면 false
+    public boolean resetPassword(String id, String answer, String newPassword) throws SQLException {
+        String sql = "UPDATE member SET password = ? WHERE id = ? AND pw_answer = ? AND is_admin = FALSE";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, newPassword);
+            ps.setString(2, id);
+            ps.setString(3, answer);
+            return ps.executeUpdate() == 1;
+        }
     }
 
     public List<Member> findAll() throws SQLException {
@@ -160,6 +205,8 @@ public class MemberDAO {
         m.setRemainSeconds(rs.getInt("remain_seconds"));
         m.setAdmin(rs.getBoolean("is_admin"));
         m.setPoint(rs.getInt("point"));
+        m.setPwQuestion(rs.getString("pw_question"));
+        m.setPwAnswer(rs.getString("pw_answer"));
         return m;
     }
 }

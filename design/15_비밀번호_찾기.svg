@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="645" height="540" viewBox="0 0 645 540">
+<title>15 비밀번호 찾기 · FindAccountDialog</title>
+<rect width="645" height="540" fill="#FFFFFF"/>
+<text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">15 비밀번호 찾기 · FindAccountDialog</text>
+<text x="613" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">400 × 330</text>
+<g id="창">
+<rect x="32" y="72" width="400" height="330" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
+<path d="M32 100V82a10 10 0 0 1 10 -10H422a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
+<circle cx="48" cy="86" r="6" fill="#FF5F57"/>
+<circle cx="68" cy="86" r="6" fill="#FEBC2E"/>
+<circle cx="88" cy="86" r="6" fill="#28C840"/>
+<text x="232.0" y="91" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">아이디 · 비밀번호 찾기</text>
+</g>
+<g id="내용">
+<g id="JTabbedPane 탭">
+<rect x="134.0" y="106" width="106" height="28" rx="4" fill="#EDEDF0" stroke="#C7C7CC" stroke-width="1"/>
+<text x="187.0" y="124" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="middle" fill="#6E6E73">아이디 찾기</text>
+<rect x="242.0" y="106" width="119" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<rect x="243.0" y="130" width="117" height="6" rx="0" fill="#FFFFFF"/>
+<text x="301.5" y="124" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">비밀번호 찾기</text>
+</g>
+<rect x="40" y="133" width="384" height="261" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="56" y="174" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">아이디</text>
+<text x="56" y="212" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">질문</text>
+<text x="56" y="246" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">답변</text>
+<text x="56" y="280" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">새 비밀번호</text>
+<text x="56" y="314" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">새 비밀번호 확인</text>
+<g id="JTextField">
+<rect x="164" y="156" width="150" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="172" y="174.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">hong</text>
+</g>
+<g id="JButton 질문 확인">
+<rect x="322" y="156" width="86" height="28" rx="6" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="365.0" y="174.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#1D1D1F">질문 확인</text>
+</g>
+<text x="164" y="212" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" text-anchor="start" fill="#1D1D1F">태어난 도시는?</text>
+<g id="JTextField">
+<rect x="164" y="228" width="244" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="172" y="246.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">서울</text>
+</g>
+<g id="JTextField">
+<rect x="164" y="262" width="244" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="172" y="280.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">●●●●</text>
+</g>
+<g id="JTextField">
+<rect x="164" y="296" width="244" height="28" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="172" y="314.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">●●●●</text>
+</g>
+<g id="JButton 비밀번호 변경">
+<rect x="288" y="346" width="120" height="28" rx="6" fill="#0A84FF"/>
+<text x="348.0" y="364.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#FFFFFF">비밀번호 변경</text>
+</g>
+<g id="표시 1"><circle cx="164" cy="156" r="10" fill="#FF3B30"/><text x="164" y="160" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text></g>
+<g id="표시 2"><circle cx="164" cy="228" r="10" fill="#FF3B30"/><text x="164" y="232" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
+<g id="표시 3"><circle cx="278" cy="346" r="10" fill="#FF3B30"/><text x="278" y="350" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text></g>
+</g>
+<g id="범례">
+<text x="32" y="434" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
+<circle cx="41" cy="454" r="9" fill="#FF3B30"/>
+<text x="41" y="458" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
+<text x="58" y="458" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">아이디 + 질문 확인: 일반 회원이고 질문을 등록했으면 질문 표시 (findPwQuestion)</text>
+<circle cx="41" cy="476" r="9" fill="#FF3B30"/>
+<text x="41" y="480" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="58" y="480" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">답변 · 새 비밀번호 · 확인: 질문을 확인하기 전에는 비활성</text>
+<circle cx="41" cy="498" r="9" fill="#FF3B30"/>
+<text x="41" y="502" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+<text x="58" y="502" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">비밀번호 변경: 답변이 맞을 때만 UPDATE (resetPassword). 틀리면 '답변이 틀렸습니다'</text>
+</g>
+</svg>

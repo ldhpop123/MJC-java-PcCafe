@@ -1,51 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="487" height="424" viewBox="0 0 487 424">
+<svg xmlns="http://www.w3.org/2000/svg" width="665" height="514" viewBox="0 0 665 514">
 <title>10 회원가입 · SignUpDialog (모달)</title>
-<rect width="487" height="424" fill="#FFFFFF"/>
+<rect width="665" height="514" fill="#FFFFFF"/>
 <text x="32" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="18" font-weight="700" fill="#1D1D1F">10 회원가입 · SignUpDialog (모달)</text>
-<text x="455" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">300 × 236</text>
+<text x="633" y="50" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12" text-anchor="end" fill="#8E8E93">340 × 304</text>
 <g id="창">
-<rect x="32" y="72" width="300" height="236" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
-<path d="M32 100V82a10 10 0 0 1 10 -10H322a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
+<rect x="32" y="72" width="340" height="304" rx="10" fill="#F5F5F7" stroke="#C7C7CC"/>
+<path d="M32 100V82a10 10 0 0 1 10 -10H362a10 10 0 0 1 10 10V100Z" fill="#E8E8ED"/>
 <circle cx="48" cy="86" r="6" fill="#FF5F57"/>
 <circle cx="68" cy="86" r="6" fill="#FEBC2E"/>
 <circle cx="88" cy="86" r="6" fill="#28C840"/>
-<text x="182.0" y="91" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">회원가입</text>
+<text x="202.0" y="91" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="600" text-anchor="middle" fill="#1D1D1F">회원가입</text>
 </g>
 <g id="내용">
 <text x="48" y="134" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">아이디</text>
 <g id="JTextField">
-<rect x="142" y="116" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
-<text x="150" y="133.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">hong</text>
+<rect x="182" y="116" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="190" y="133.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">hong</text>
 </g>
 <text x="48" y="168" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">비밀번호</text>
 <g id="JTextField">
-<rect x="142" y="150" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
-<text x="150" y="167.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">●●●●</text>
+<rect x="182" y="150" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="190" y="167.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">●●●●</text>
 </g>
 <text x="48" y="202" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">이름</text>
 <g id="JTextField">
-<rect x="142" y="184" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
-<text x="150" y="201.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">홍길동</text>
+<rect x="182" y="184" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="190" y="201.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">홍길동</text>
 </g>
 <text x="48" y="236" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">전화번호</text>
 <g id="JTextField">
-<rect x="142" y="218" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
-<text x="150" y="235.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">010-1234-5678</text>
+<rect x="182" y="218" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="190" y="235.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">010-1234-5678</text>
+</g>
+<text x="48" y="270" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">비밀번호 찾기 질문</text>
+<g id="JComboBox 비밀번호 찾기 질문">
+<rect x="182" y="252" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="190" y="269.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">태어난 도시는?</text>
+<rect x="334" y="256" width="18" height="18" rx="3" fill="#0A84FF"/>
+<text x="343" y="269.0" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">▾</text>
+</g>
+<text x="48" y="304" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">답변</text>
+<g id="JTextField">
+<rect x="182" y="286" width="174" height="26" rx="4" fill="#FFFFFF" stroke="#C7C7CC" stroke-width="1"/>
+<text x="190" y="303.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="400" text-anchor="start" fill="#1D1D1F">서울</text>
 </g>
 <g id="JButton 가입">
-<rect x="48" y="260" width="268" height="30" rx="6" fill="#0A84FF"/>
-<text x="182.0" y="279.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#FFFFFF">가입</text>
+<rect x="48" y="328" width="308" height="30" rx="6" fill="#0A84FF"/>
+<text x="202.0" y="347.5" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="500" text-anchor="middle" fill="#FFFFFF">가입</text>
 </g>
 <g id="표시 1"><circle cx="40" cy="116" r="10" fill="#FF3B30"/><text x="40" y="120" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text></g>
-<g id="표시 2"><circle cx="40" cy="260" r="10" fill="#FF3B30"/><text x="40" y="264" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
+<g id="표시 2"><circle cx="40" cy="252" r="10" fill="#FF3B30"/><text x="40" y="256" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text></g>
+<g id="표시 3"><circle cx="40" cy="328" r="10" fill="#FF3B30"/><text x="40" y="332" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text></g>
 </g>
 <g id="범례">
-<text x="32" y="340" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
-<circle cx="41" cy="360" r="9" fill="#FF3B30"/>
-<text x="41" y="364" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
-<text x="58" y="364" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">아이디 · 비밀번호 · 이름은 필수, 전화번호는 선택</text>
-<circle cx="41" cy="382" r="9" fill="#FF3B30"/>
-<text x="41" y="386" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
-<text x="58" y="386" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">가입: 아이디 중복 확인(existsById) 후 MemberDAO.insert</text>
+<text x="32" y="408" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="13" font-weight="700" fill="#1D1D1F">구성 요소</text>
+<circle cx="41" cy="428" r="9" fill="#FF3B30"/>
+<text x="41" y="432" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
+<text x="58" y="432" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">아이디 · 비밀번호 · 이름은 필수, 전화번호는 선택 (아이디 찾기에 쓰임)</text>
+<circle cx="41" cy="450" r="9" fill="#FF3B30"/>
+<text x="41" y="454" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="58" y="454" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">비밀번호 찾기 질문(4개 중 선택) + 답변: 필수. member.pw_question / pw_answer에 저장</text>
+<circle cx="41" cy="472" r="9" fill="#FF3B30"/>
+<text x="41" y="476" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+<text x="58" y="476" font-family="Apple SD Gothic Neo, Malgun Gothic, Noto Sans KR, sans-serif" font-size="12.5" fill="#1D1D1F">가입: 아이디 중복 확인(existsById) 후 MemberDAO.insert</text>
 </g>
 </svg>

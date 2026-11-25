@@ -12,7 +12,7 @@ Java Swing + MySQL로 만드는 PC방 관리 프로그램입니다.
 | 실행 형태 | 한 JVM, 관리자 창 1 + 게스트 창 N |
 | 핵심 기술 | 상속, 스레드, 이벤트 처리, DB CRUD |
 | 채팅 | 객체 참조로 실시간 전달 + DB(`chat_message`)에 저장 |
-| 결제 | 장바구니, 결제 수단(카드/현금/포인트), 결제 상세, 트랜잭션 |
+| 결제 | 메뉴 표 + 주문 목록, 결제 수단(카드/현금/포인트), 결제 상세, 트랜잭션 |
 
 ## 2. 시스템 구조
 
@@ -45,14 +45,16 @@ Java Swing + MySQL로 만드는 PC방 관리 프로그램입니다.
 
 | 기능 | 설명 | 우선순위 |
 | --- | --- | --- |
-| 회원가입 | 아이디 중복 체크 후 DB 저장 | 필수 |
+| 회원가입 | 아이디 중복 체크 후 DB 저장. 비밀번호 찾기 질문(4개 중 선택)과 답변 필수 | 필수 |
+| 아이디 찾기 | 이름 + 전화번호로 아이디 조회 ('-' 유무 무관, 관리자 제외) | 중요 |
+| 비밀번호 찾기 | 아이디 → 질문 확인 → 답변이 맞으면 새 비밀번호로 변경 | 중요 |
 | 로그인 | DB 조회, 같은 계정 중복 로그인 차단 | 필수 |
 | 좌석 선택 | 빈 좌석만 표시. 콤보박스를 펼칠 때마다 DB에서 다시 읽음 | 필수 |
 | 남은 시간 표시 | 1초마다 감소, 화면 갱신 | 필수 |
 | 시간 추가 구매 | 요금제 선택 → 결제 수단 입력 → 시간 추가 + 결제·결제 상세 저장 | 필수 |
 | 사용 종료 / 창 닫기 | 남은 시간 DB 저장, 좌석 비우기, 스레드 종료 | 필수 |
 | 관리자와 채팅 | 메시지 송수신, DB 저장. 로그인하면 이전 대화를 불러옴 | 중요 |
-| 음식 주문 | 장바구니에 여러 메뉴 담기 → 결제 수단 입력 → 관리자에게 알림 | 중요 |
+| 음식 주문 | 전체 메뉴 표(메뉴·분류·가격·재고)에서 골라 주문 목록에 담기 → 결제 수단 입력 → 관리자에게 알림 | 중요 |
 | 포인트 | 카드·현금 결제액의 5% 적립, 결제할 때 사용 | 중요 |
 | 5분 남음 경고 | 5분 이하로 처음 내려가면 팝업 (관리자가 -10분 해도 뜸) | 선택 |
 | 시간 0 → 자동 종료 | 자동 로그아웃 | 필수 |
@@ -63,7 +65,8 @@ Java Swing + MySQL로 만드는 PC방 관리 프로그램입니다.
 | --- | --- | --- |
 | 게스트 추가 버튼 | 새 `GuestFrame` 인스턴스 생성 | 필수 |
 | 좌석판 | 좌석 그리드, 빈자리/사용중 색 구분, 사용자·남은 시간 실시간 표시 | 필수 |
-| 좌석 추가 / 삭제 | 총 좌석 수를 관리자가 정함. 사용 중인 좌석은 삭제 불가 | 중요 |
+| 총 좌석 수 | 숫자를 입력해 한 번에 맞춤. 늘리면 마지막 번호 뒤로 추가, 줄이면 번호가 큰 빈 좌석부터 삭제 (사용 중 좌석은 유지) | 중요 |
+| 좌석 추가 / 삭제 | 1석씩 추가, 선택한 빈 좌석 삭제. 사용 중인 좌석은 삭제 불가 | 중요 |
 | 손님 시간 추가 / 차감 | 선택한 좌석의 남은 시간 변경 | 필수 |
 | 강제 종료 | 선택한 좌석 사용 종료 (시간 저장 후 로그아웃) | 필수 |
 | 회원 관리 | 검색 기준(이름 / 전화번호 뒤 4자리 / 아이디)으로 조회, 수정, 삭제 | 필수 |
@@ -148,6 +151,8 @@ erDiagram
         int remain_seconds
         boolean is_admin
         int point
+        varchar pw_question "비밀번호 찾기 질문"
+        varchar pw_answer "비밀번호 찾기 답변"
         datetime created_at
     }
     seat {
@@ -228,8 +233,8 @@ erDiagram
 
 | 테이블 | Create | Read | Update | Delete |
 | --- | --- | --- | --- | --- |
-| member | 회원가입 | 로그인, 회원 검색 | 정보 수정, 남은 시간 저장, 포인트 | 회원 삭제 |
-| seat | 좌석 추가 | 좌석판, 빈 좌석 목록 | 사용 시작 / 종료 | 좌석 삭제 (빈 좌석만) |
+| member | 회원가입 | 로그인, 회원 검색, 아이디 찾기, 비밀번호 찾기 질문 | 정보 수정, 남은 시간 저장, 포인트, 비밀번호 재설정 | 회원 삭제 |
+| seat | 좌석 추가, 총 좌석 수 늘리기 | 좌석판, 빈 좌석 목록 | 사용 시작 / 종료 | 좌석 삭제, 총 좌석 수 줄이기 (빈 좌석만) |
 | time_product | 요금제 등록 | 요금제 목록 | 요금제 수정 | 요금제 삭제 |
 | menu | 메뉴 등록 | 메뉴 목록 | 정보 수정, 재고 입고 / 차감 | 메뉴 삭제 |
 | payment | 시간 구매, 음식 결제, 환불 | 매출 확인 | - | - |
@@ -239,13 +244,16 @@ erDiagram
 
 관리자 계정은 `member.is_admin = TRUE`로 구분한다.
 
+`pw_question`과 `pw_answer`는 함께 있거나 함께 없다 (`CHECK` 제약). 새 회원은 가입할 때 반드시 입력하고, 관리자와 예전 회원은 `NULL`이라 비밀번호 찾기를 쓸 수 없다 (관리자에게 문의).
+
 ## 7. 패키지 / 클래스 구조
 
 ```
 pom.xml                          // Maven (mysql-connector-j)
 sql/
 ├─ schema.sql                    // 테이블 생성 + 초기 데이터 (새로 설치할 때)
-└─ migrate_v2.sql                // 예전 구조의 DB를 데이터 유지한 채 새 구조로
+├─ migrate_v2.sql                // 예전 구조의 DB를 데이터 유지한 채 새 구조로
+└─ migrate_v3.sql                // 비밀번호 찾기 질문·답변 컬럼 추가 (v2 다음에)
 src/main/resources/
 └─ db.properties.example         // 복사해서 db.properties로 사용 (git 제외)
 src/main/java/pccafe/
@@ -279,6 +287,8 @@ src/main/java/pccafe/
 │  ├─ AdminFrame.java            // extends BaseFrame
 │  ├─ GuestFrame.java            // extends BaseFrame
 │  ├─ SignUpDialog.java
+│  ├─ FindAccountDialog.java     // 아이디 찾기 / 비밀번호 찾기 (탭 2개)
+│  ├─ FoodOrderDialog.java       // 메뉴 표 + 주문 목록
 │  ├─ PaymentDialog.java         // 결제 수단 입력 창
 │  ├─ Forms.java                 // 라벨 + 입력칸 폼 배치
 │  └─ panel/                     // 관리자 탭
@@ -337,22 +347,28 @@ src/main/java/pccafe/
   <img src="design/figma/11_팝업_시간구매.png" alt="시간 구매 팝업" width="49%">
 </p>
 <p>
-  <img src="design/figma/12_팝업_음식주문.png" alt="음식 주문 장바구니" width="49%">
+  <img src="design/figma/12_팝업_음식주문.png" alt="음식 주문" width="49%">
   <img src="design/figma/13_결제수단.png" alt="결제 수단 창" width="49%">
+</p>
+
+<p>
+  <img src="design/figma/14_아이디_찾기.png" alt="아이디 찾기" width="49%">
+  <img src="design/figma/15_비밀번호_찾기.png" alt="비밀번호 찾기" width="49%">
 </p>
 
 ## 8. 실행 방법
 
 1. MySQL 실행 후 스키마 생성: `mysql -u root -p < sql/schema.sql`
-   - 이미 예전 구조로 쓰던 DB가 있으면 `schema.sql` 대신 백업 후 `sql/migrate_v2.sql`을 한 번 실행한다. (`schema.sql`은 테이블을 지우고 새로 만든다)
+   - 이미 쓰던 DB가 있으면 `schema.sql` 대신 백업 후 아직 적용하지 않은 마이그레이션만 순서대로 한 번씩 실행한다. (`schema.sql`은 테이블을 지우고 새로 만든다)
      ```bash
      mysqldump -u root -p pccafe > ~/pccafe_backup.sql
-     mysql -u root -p pccafe < sql/migrate_v2.sql
+     mysql -u root -p pccafe < sql/migrate_v2.sql   # 결제 상세 · 포인트 · 채팅 저장
+     mysql -u root -p pccafe < sql/migrate_v3.sql   # 비밀번호 찾기 질문 · 답변
      ```
 2. `src/main/resources/db.properties.example`을 `db.properties`로 복사하고 계정 정보 입력
 3. IntelliJ에서 `pom.xml`을 Maven 프로젝트로 열기 → `pccafe.Main` 실행
 4. 관리자 로그인: `admin` / `admin` → 관리자 창에서 "게스트 추가"
-5. 게스트 테스트 계정: `test` / `1234` (1시간 보유)
+5. 게스트 테스트 계정: `test` / `1234` (1시간 보유, 전화번호 `010-1234-5678`, 비밀번호 찾기 질문 "태어난 도시는?" 답변 `서울`)
 
 ## 9. 개발 순서
 

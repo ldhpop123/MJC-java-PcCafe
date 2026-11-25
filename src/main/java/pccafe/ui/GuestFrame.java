@@ -17,33 +17,27 @@ import pccafe.thread.TimerThread;
 import pccafe.util.TimeFormat;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GuestFrame extends BaseFrame {
@@ -130,9 +124,21 @@ public class GuestFrame extends BaseFrame {
         pwField.addActionListener(e -> login());
         signUp.addActionListener(e -> new SignUpDialog(this).setVisible(true));
 
-        JPanel buttons = new JPanel(new FlowLayout());
-        buttons.add(login);
-        buttons.add(signUp);
+        JButton findId = new JButton("아이디 찾기");
+        JButton findPw = new JButton("비밀번호 찾기");
+        findId.addActionListener(e -> new FindAccountDialog(this, FindAccountDialog.FIND_ID).setVisible(true));
+        findPw.addActionListener(e -> new FindAccountDialog(this, FindAccountDialog.FIND_PW).setVisible(true));
+
+        JPanel mainButtons = new JPanel(new FlowLayout());
+        mainButtons.add(login);
+        mainButtons.add(signUp);
+        JPanel findButtons = new JPanel(new FlowLayout());
+        findButtons.add(findId);
+        findButtons.add(findPw);
+
+        JPanel buttons = new JPanel(new BorderLayout());
+        buttons.add(mainButtons, BorderLayout.NORTH);
+        buttons.add(findButtons, BorderLayout.CENTER);
 
         JLabel title = new JLabel("PC방 로그인", SwingConstants.CENTER);
         title.setFont(title.getFont().deriveFont(Font.BOLD, 22f));
@@ -293,7 +299,7 @@ public class GuestFrame extends BaseFrame {
         }
     }
 
-    // 장바구니에 메뉴를 담고 → 결제 수단 입력 → 재고 차감·결제·주문을 한 번에 저장 → 관리자에게 알림
+    // 메뉴 표에서 골라 주문 목록에 담고 → 결제 수단 입력 → 재고 차감·결제·주문을 한 번에 저장 → 관리자에게 알림
     private void orderFood() {
         Member m = member;
         if (m == null) {
@@ -305,7 +311,7 @@ public class GuestFrame extends BaseFrame {
                 showInfo("등록된 메뉴가 없습니다.");
                 return;
             }
-            List<PaymentDetail> cart = showCartDialog(menus);
+            List<PaymentDetail> cart = new FoodOrderDialog(this, menus).showDialog();
             if (cart == null) {
                 return;
             }
@@ -334,79 +340,6 @@ public class GuestFrame extends BaseFrame {
             showInfo(e.getMessage());   // 재고·포인트 부족: 아무것도 저장되지 않았다 (rollback)
         } catch (SQLException e) {
             showError(e);
-        }
-    }
-
-    // 장바구니 창. 메뉴와 수량을 골라 "담기", 목록에서 골라 "빼기". 확인을 누르면 담은 목록, 취소하면 null
-    private List<PaymentDetail> showCartDialog(List<Menu> menus) {
-        JComboBox<Menu> menuCombo = new JComboBox<>(menus.toArray(new Menu[0]));
-        JSpinner qtySpinner = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
-        JButton addButton = new JButton("담기");
-        JButton removeButton = new JButton("빼기");
-
-        List<PaymentDetail> cart = new ArrayList<>();
-        DefaultListModel<PaymentDetail> cartModel = new DefaultListModel<>();
-        JList<PaymentDetail> cartList = new JList<>(cartModel);
-        JLabel totalLabel = new JLabel("합계: 0원");
-
-        Runnable redraw = () -> {
-            cartModel.clear();
-            int total = 0;
-            for (PaymentDetail item : cart) {
-                cartModel.addElement(item);
-                total += item.getSubtotal();
-            }
-            totalLabel.setText(String.format("합계: %,d원", total));
-        };
-        addButton.addActionListener(e -> {
-            Menu menu = (Menu) menuCombo.getSelectedItem();
-            int qty = (Integer) qtySpinner.getValue();
-            // 이미 담은 메뉴면 수량만 늘린다
-            for (PaymentDetail item : cart) {
-                if (item.getMenuId() == menu.getMenuId()) {
-                    item.setQty(item.getQty() + qty);
-                    redraw.run();
-                    return;
-                }
-            }
-            cart.add(PaymentDetail.ofMenu(menu, qty));
-            redraw.run();
-        });
-        removeButton.addActionListener(e -> {
-            int index = cartList.getSelectedIndex();
-            if (index >= 0) {
-                cart.remove(index);
-                redraw.run();
-            }
-        });
-
-        JPanel pick = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pick.add(menuCombo);
-        pick.add(qtySpinner);
-        pick.add(addButton);
-
-        JScrollPane listScroll = new JScrollPane(cartList);
-        listScroll.setPreferredSize(new Dimension(320, 140));
-
-        JPanel bottom = new JPanel(new BorderLayout());
-        bottom.add(removeButton, BorderLayout.WEST);
-        bottom.add(totalLabel, BorderLayout.EAST);
-
-        JPanel form = new JPanel(new BorderLayout(6, 6));
-        form.add(pick, BorderLayout.NORTH);
-        form.add(listScroll, BorderLayout.CENTER);
-        form.add(bottom, BorderLayout.SOUTH);
-
-        while (true) {
-            int answer = JOptionPane.showConfirmDialog(this, form, "음식 주문 (장바구니)",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-            if (answer != JOptionPane.OK_OPTION) {
-                return null;
-            }
-            if (!cart.isEmpty()) {
-                return cart;
-            }
-            showInfo("메뉴를 담아 주세요.");
         }
     }
 

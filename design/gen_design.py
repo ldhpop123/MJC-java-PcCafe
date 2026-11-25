@@ -262,10 +262,15 @@ s.label(side_x, 92, "선택된 좌석: 3번", 13, 600)
 s.button(side_x, 104, side_w, "시간 +10분")
 s.button(side_x, 134, side_w, "시간 -10분")
 s.button(side_x, 164, side_w, "강제 종료")
-s.button(side_x, 198, side_w / 2 - 3, "좌석 추가")
-s.button(side_x + side_w / 2 + 3, 198, side_w / 2 - 3, "좌석 삭제")
-s.titled(side_x, 236, side_w, CH - 252, "채팅 (선택된 좌석에게 전송)", "채팅")
-s.textarea(side_x + 10, 256, side_w - 20, CH - 326, [
+s.g_open("총 좌석 수")
+s.label(side_x, 216, "총 좌석 수")
+s.spinner(side_x + 76, 198, side_w - 76 - 66, "12")
+s.button(side_x + side_w - 58, 198, 58, "적용")
+s.g_close()
+s.button(side_x, 232, side_w / 2 - 3, "좌석 추가")
+s.button(side_x + side_w / 2 + 3, 232, side_w / 2 - 3, "좌석 삭제")
+s.titled(side_x, 270, side_w, CH - 286, "채팅 (선택된 좌석에게 전송)", "채팅")
+s.textarea(side_x + 10, 290, side_w - 20, CH - 360, [
     "── 3번 좌석 test 님과의 대화 ──",
     "[test] 라면 언제 나와요?",
     "[관리자] 곧 갖다드릴게요",
@@ -278,8 +283,9 @@ s.marker(8, 6, 1, "게스트 추가: 누를 때마다 new GuestFrame(this) → �
 s.marker(8, 40, 2, "JTabbedPane: 탭을 고르면 BasePanel.refresh()로 DB를 다시 읽음")
 s.marker(16, 75, 3, "좌석판: 회색 = 빈자리, 파랑 = 사용 중(이름 + 남은 시간, 1초마다 갱신), 클릭 = 선택(파란 테두리)")
 s.marker(side_x, 104, 4, "시간 ±10분 / 강제 종료: 선택한 좌석의 GuestFrame에 addSeconds() / forceLogout()")
-s.marker(side_x, 198, 5, "좌석 추가 / 삭제: 마지막 번호 다음으로 추가, 빈 좌석만 삭제 (SeatDAO, synchronized)")
-s.marker(side_x, 236, 6, "채팅: 좌석을 고르면 그 손님과의 이전 대화(최근 50개)를 불러옴. 보낼 때 chat_message에 저장")
+s.marker(side_x + 76, 198, 5, "총 좌석 수 + 적용: 그 수에 맞게 좌석을 만들거나, 번호가 큰 빈 좌석부터 삭제 (사용 중 좌석은 유지)")
+s.marker(side_x, 232, 6, "좌석 추가 / 삭제: 마지막 번호 다음으로 1석 추가, 선택한 빈 좌석 삭제 (SeatDAO, synchronized)")
+s.marker(side_x, 270, 7, "채팅: 좌석을 고르면 그 손님과의 이전 대화(최근 50개)를 불러옴. 보낼 때 chat_message에 저장")
 s.render()
 
 # 03 회원 관리 탭
@@ -398,10 +404,13 @@ s.label(48, 160 + 88 + 18, "좌석")
 s.combo(150, 160 + 88, 222, "3", h=30)
 s.button(GW / 2 - 104, 340, 100, "로그인", h=30, primary=True)
 s.button(GW / 2 + 4, 340, 100, "회원가입", h=30)
+s.button(GW / 2 - 124, 380, 120, "아이디 찾기", h=28)
+s.button(GW / 2 + 4, 380, 120, "비밀번호 찾기", h=28)
 s.marker(38, 160, 1, "아이디 / 비밀번호 (비밀번호 칸에서 Enter = 로그인)")
 s.marker(38, 248, 2, "좌석: 빈 좌석만 표시. 펼칠 때마다 DB에서 다시 읽음 (PopupMenuListener)")
 s.marker(GW / 2 - 114, 340, 3, "로그인: 중복 접속 · 관리자 계정 · 이미 찬 좌석 검사 → 사용 중 카드. 남은 시간 0이면 시간 구매 창")
 s.marker(GW / 2 + 104, 340, 4, "회원가입: SignUpDialog (모달)")
+s.marker(GW / 2 + 124, 380, 5, "아이디 찾기 / 비밀번호 찾기: FindAccountDialog를 해당 탭을 연 채로 띄움 (14 · 15)")
 s.render()
 
 # 08 게스트 사용 중
@@ -426,14 +435,19 @@ s.marker(bx - 10, GCH - 40, 3, "시간 구매(11) / 음식 주문(12) → 결제
 s.render()
 
 # 09 회원가입
-s = screen("10_회원가입", "10 회원가입 · SignUpDialog (모달)", "회원가입", 300, 236)
+s = screen("10_회원가입", "10 회원가입 · SignUpDialog (모달)", "회원가입", 340, 304)
 for i, (k, v, pw) in enumerate([("아이디", "hong", False), ("비밀번호", "1234", True), ("이름", "홍길동", False), ("전화번호", "010-1234-5678", False)]):
     y = 16 + i * 34
     s.label(16, y + 18, k)
-    s.field(110, y, 174, v, password=pw)
-s.button(16, 160, 268, "가입", h=30, primary=True)
-s.marker(8, 16, 1, "아이디 · 비밀번호 · 이름은 필수, 전화번호는 선택")
-s.marker(8, 160, 2, "가입: 아이디 중복 확인(existsById) 후 MemberDAO.insert")
+    s.field(150, y, 174, v, password=pw)
+s.label(16, 152 + 18, "비밀번호 찾기 질문")
+s.combo(150, 152, 174, "태어난 도시는?", gid="JComboBox 비밀번호 찾기 질문")
+s.label(16, 186 + 18, "답변")
+s.field(150, 186, 174, "서울")
+s.button(16, 228, 308, "가입", h=30, primary=True)
+s.marker(8, 16, 1, "아이디 · 비밀번호 · 이름은 필수, 전화번호는 선택 (아이디 찾기에 쓰임)")
+s.marker(8, 152, 2, "비밀번호 찾기 질문(4개 중 선택) + 답변: 필수. member.pw_question / pw_answer에 저장")
+s.marker(8, 228, 3, "가입: 아이디 중복 확인(existsById) 후 MemberDAO.insert")
 s.render()
 
 # 10 시간 구매 팝업
@@ -448,24 +462,38 @@ s.marker(66, 44, 1, "요금제 (time_product): 관리자 요금제 관리 탭에
 s.marker(148, 98, 2, "확인 → 결제 수단 창(13) → 결제 · 결제 상세 · 포인트 저장(트랜잭션) → 시간 추가")
 s.render()
 
-# 12 음식 주문 (장바구니)
-s = screen("12_팝업_음식주문", "12 팝업 · 음식 주문 장바구니", "음식 주문 (장바구니)", 400, 300)
-s.combo(20, 16, 170, "라면 - 3,000원")
-s.spinner(198, 16, 70, "2")
-s.button(276, 16, 64, "담기")
-s.g_open("JList 장바구니 (JScrollPane)")
-s.rect(20, 52, 360, 140, fill=C["field"], stroke=C["border"], rx=4)
-s.rect(21, 53, 358, 24, fill=C["rowsel"])
-s.text(28, 70, "라면 × 2 = 6,000원", 12.5)
-s.text(28, 94, "콜라 × 1 = 1,500원", 12.5)
-s.g_close()
-s.button(20, 200, 64, "빼기")
-s.label(380, 218, "합계: 7,500원", 13, 700, "end")
-s.button(218, 232, 76, "취소")
-s.button(304, 232, 76, "확인", primary=True)
-s.marker(10, 16, 1, "메뉴 + 수량(1~10) 고르고 담기. 같은 메뉴는 수량을 합침")
-s.marker(10, 52, 2, "장바구니 목록: 줄을 고르고 빼기. 합계는 담을 때마다 다시 계산")
-s.marker(208, 232, 3, "확인 → 결제 수단 창(13). 비어 있으면 '메뉴를 담아 주세요'")
+# 12 음식 주문 (FoodOrderDialog 560 × 640)
+FW, FH = 560, 640
+FCH = FH - TITLE_H
+s = screen("12_팝업_음식주문", "12 음식 주문 · FoodOrderDialog (모달)", "음식 주문", FW, FH)
+menu_h = FCH - 12 - 190 - 8 - 48
+s.titled(12, 12, FW - 24, menu_h, "전체 메뉴", "전체 메뉴")
+s.table(22, 34, FW - 44, [("메뉴", 3), ("분류", 2), ("가격", 2), ("재고", 2)], [
+    ["과자", "간식", "1,500원", "80개"],
+    ["라면", "식사", "3,000원", "50개"],
+    ["볶음밥", "식사", "5,000원", "30개"],
+    ["아메리카노", "음료", "2,000원", "100개"],
+    ["콜라", "음료", "1,500원", "100개"],
+    ["핫도그", "간식", "2,500원", "품절"],
+], selected=1, gid="JTable 메뉴 표 (JScrollPane)", h=menu_h - 70)
+pick_y = 12 + menu_h - 40
+s.label(FW - 22 - 64 - 8 - 64 - 10, pick_y + 18, "메뉴를 고르고 수량을 정한 뒤 [담기] (더블클릭하면 1개)", 12, 400, "end", C["sub"])
+s.spinner(FW - 22 - 64 - 8 - 64, pick_y, 64, "2")
+s.button(FW - 22 - 64, pick_y, 64, "담기", primary=True)
+cart_y = 12 + menu_h + 8
+s.titled(12, cart_y, FW - 24, 190, "주문 목록", "주문 목록")
+s.table(22, cart_y + 22, FW - 44, [("메뉴", 3), ("수량", 2), ("금액", 2)], [
+    ["라면", "2개", "6,000원"],
+    ["콜라", "1개", "1,500원"],
+], gid="JTable 주문 목록 (JScrollPane)", h=118)
+s.button(22, cart_y + 148, 64, "빼기")
+s.label(FW - 22, cart_y + 166, "합계: 7,500원", 13, 700, "end")
+s.button(FW - 12 - 76 - 8 - 90, FCH - 38, 90, "주문하기", primary=True)
+s.button(FW - 12 - 76, FCH - 38, 76, "취소")
+s.marker(12, 34, 1, "전체 메뉴 표 (메뉴 · 분류 · 가격 · 재고): 분류 순 정렬, 재고 0이면 '품절'")
+s.marker(FW - 22, pick_y, 2, "줄을 고르고 수량(1~10) + 담기, 또는 더블클릭 = 1개 담기. 재고보다 많이 못 담음")
+s.marker(12, cart_y + 22, 3, "주문 목록: 같은 메뉴는 수량을 합침. 줄을 고르고 빼기, 합계는 담을 때마다 다시 계산")
+s.marker(FW - 12 - 76 - 8 - 90 - 10, FCH - 38, 4, "주문하기 → 결제 수단 창(13). 비어 있으면 '메뉴를 담아 주세요'")
 s.render()
 
 # 13 결제 수단 창
@@ -482,6 +510,49 @@ s.button(228, 206, 76, "취소")
 s.marker(12, 22, 1, "결제 금액과 보유 포인트. 남은 금액을 입력할 때마다 다시 계산")
 s.marker(12, 104, 2, "카드 + 현금 + 포인트 = 결제 금액이어야 하고, 포인트는 보유한 만큼만")
 s.marker(136, 206, 3, "결제: PaymentService 트랜잭션 (재고 · 결제 · 결제 상세 · 주문 · 포인트). 실패하면 rollback")
+s.render()
+
+# 14 아이디 찾기 탭 (FindAccountDialog 400 × 330)
+AW, AH = 400, 330
+ACH = AH - TITLE_H
+FIND_TABS = ["아이디 찾기", "비밀번호 찾기"]
+
+
+def find_screen(slug, title, active):
+    s = screen(slug, title, "아이디 · 비밀번호 찾기", AW, AH)
+    s.tabs(AW / 2 - 98, 6, FIND_TABS, active, AW - 16)
+    s.rect(8, 33, AW - 16, ACH - 41, fill=C["field"], stroke=C["border"], rx=4)
+    return s
+
+
+s = find_screen("14_아이디_찾기", "14 아이디 찾기 · FindAccountDialog", "아이디 찾기")
+s.label(24, 66, "가입할 때 입력한 이름과 전화번호를 입력하세요.", 12.5)
+s.label(24, 108, "이름")
+s.field(100, 90, 276, "홍길동", h=28)
+s.label(24, 146, "전화번호")
+s.field(100, 128, 276, "01012345678", h=28)
+s.button(24, 196, 352, "아이디 찾기", h=28, primary=True)
+s.label(24, 250, "회원님의 아이디: hong", 14, 700)
+s.marker(AW / 2 - 98, 6, 1, "로그인 화면의 [아이디 찾기] / [비밀번호 찾기] 버튼이 각각 해당 탭을 연 채로 띄움")
+s.marker(100, 90, 2, "이름 + 전화번호: '-'를 넣든 빼든 같은 번호로 비교 (REPLACE). 관리자 계정은 찾지 않음")
+s.marker(14, 196, 3, "아이디 찾기: MemberDAO.findIds() → 같은 이름·번호의 아이디를 모두 표시")
+s.render()
+
+# 15 비밀번호 찾기 탭
+s = find_screen("15_비밀번호_찾기", "15 비밀번호 찾기 · FindAccountDialog", "비밀번호 찾기")
+rows = [("아이디", 56), ("질문", 94), ("답변", 128), ("새 비밀번호", 162), ("새 비밀번호 확인", 196)]
+for k, y in rows:
+    s.label(24, y + 18, k)
+s.field(132, 56, 150, "hong", h=28)
+s.button(290, 56, 86, "질문 확인", h=28)
+s.label(132, 94 + 18, "태어난 도시는?", 13, 700)
+s.field(132, 128, 244, "서울", h=28)
+s.field(132, 162, 244, "abcd", h=28, password=True)
+s.field(132, 196, 244, "abcd", h=28, password=True)
+s.button(AW - 24 - 120, 246, 120, "비밀번호 변경", h=28, primary=True)
+s.marker(132, 56, 1, "아이디 + 질문 확인: 일반 회원이고 질문을 등록했으면 질문 표시 (findPwQuestion)")
+s.marker(132, 128, 2, "답변 · 새 비밀번호 · 확인: 질문을 확인하기 전에는 비활성")
+s.marker(AW - 24 - 130, 246, 3, "비밀번호 변경: 답변이 맞을 때만 UPDATE (resetPassword). 틀리면 '답변이 틀렸습니다'")
 s.render()
 
 
@@ -529,9 +600,10 @@ parts.append("</g>")
 
 box(430, 290, 210, 56, "게스트 · 로그인", ["08 GuestFrame"])
 box(160, 290, 180, 56, "회원가입", ["10 SignUpDialog"])
+box(182, 196, 200, 56, "아이디 · 비밀번호 찾기", ["14 · 15 FindAccountDialog"])
 box(430, 470, 210, 56, "게스트 · 사용 중", ["09 GuestFrame"], accent=True)
 box(340, 610, 170, 48, "시간 구매 팝업", ["11"])
-box(560, 610, 170, 48, "음식 주문 장바구니", ["12"])
+box(560, 610, 170, 48, "음식 주문", ["12 FoodOrderDialog"])
 box(430, 712, 210, 56, "결제 수단 창", ["13 PaymentDialog"], accent=True)
 box(32, 450, 250, 96, "종료 (endSession)", ["사용 종료 버튼 · 창 X", "남은 시간 0초 · 관리자 강제 종료"])
 
@@ -540,6 +612,8 @@ arrow("M370 128H428", "admin 계정", 399, 90)
 arrow("M640 120H738", "탭 선택", 689, 112)
 arrow("M535 156V288", "게스트 추가\n(new GuestFrame)", 545, 214, "start")
 arrow("M428 318H342", None, both=True)
+arrow("M470 288V224H384", None, both=True)
+parts.append(f'<text x="428" y="216" font-family="{FONT}" font-size="12" text-anchor="middle" fill="{C["sub"]}">찾기 / 닫힘</text>')
 arrow("M535 346V468", "로그인 성공\nTimerThread 시작", 545, 400, "start")
 arrow("M480 526V608")
 arrow("M590 526V608")
